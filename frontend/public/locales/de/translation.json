@@ -1,0 +1,27 @@
+{
+  "nav": { "dashboard": "Dashboard", "newReport": "Neuer Bericht", "history": "Verlauf", "admin": "Verwaltung", "logout": "Abmelden", "settings": "Einstellungen" },
+  "login": { "title": "Bei BauDok anmelden", "subtitle": "Bautagesberichte leicht gemacht", "email": "E-Mail-Adresse", "password": "Passwort", "submit": "Anmelden", "error": "Ungültige E-Mail oder Passwort", "loading": "Anmeldung läuft..." },
+  "dashboard": { "welcome": "Willkommen", "reportsToday": "Berichte heute", "reportsThisWeek": "Berichte diese Woche", "pendingReview": "Ausstehende Prüfung", "recentReports": "Letzte Berichte", "newReport": "Neuen Bericht erstellen", "noReports": "Noch keine Berichte vorhanden." },
+  "report": {
+    "new": "Neuer Tagesbericht", "date": "Datum", "project": "Projekt", "noProject": "Kein Projekt",
+    "weather": "Wetter", "temperature": "Temperatur (°C)", "rawInput": "Arbeitstag beschreiben",
+    "rawInputPlaceholder": "z.B. Heute habe ich im EG Elektroleitungen verlegt, ca. 8 Stunden...",
+    "voiceStart": "Spracheingabe starten", "voiceStop": "Aufnahme beenden", "voiceListening": "Höre zu...",
+    "voiceNotSupported": "Spracheingabe wird von diesem Browser nicht unterstützt.",
+    "generate": "Bericht generieren", "regenerate": "Neu generieren", "generating": "Bericht wird erstellt...",
+    "save": "Bericht speichern", "saving": "Wird gespeichert...", "saved": "Bericht gespeichert",
+    "generateError": "Bericht konnte nicht erstellt werden. Bitte erneut versuchen.",
+    "status": { "draft": "Entwurf", "generated": "Generiert", "reviewed": "Geprüft", "sent": "Versendet" },
+    "categories": { "work_performed": "Ausgeführte Arbeiten", "materials_used": "Verwendetes Material", "equipment": "Geräte / Maschinen", "personnel": "Personal", "obstacle": "Behinderungen / Probleme", "safety": "Sicherheit", "note": "Sonstige Notizen" },
+    "summary": "Zusammenfassung", "rawInputLabel": "Originaleingabe",
+    "exportPdf": "PDF herunterladen", "exportCsv": "CSV exportieren", "exportExcel": "Excel exportieren",
+    "sendEmail": "Per E-Mail senden", "emailRecipient": "Empfänger E-Mail", "sendEmailConfirm": "E-Mail senden",
+    "emailSent": "E-Mail wurde versendet", "review": "Als geprüft markieren",
+    "reviewNotes": "Prüfnotizen (optional)", "reviewConfirm": "Bericht freigeben", "reviewed": "Bericht wurde geprüft",
+    "durationHours": "Stunden", "quantity": "Menge", "noEntries": "Keine Einträge vorhanden."
+  },
+  "history": { "title": "Berichtsverlauf", "filterByProject": "Nach Projekt filtern", "filterByStatus": "Nach Status filtern", "filterByWorker": "Nach Mitarbeiter filtern", "dateFrom": "Von", "dateTo": "Bis", "bulkExport": "Sammelexport", "noResults": "Keine Berichte gefunden.", "allProjects": "Alle Projekte", "allStatuses": "Alle Status", "allWorkers": "Alle Mitarbeiter" },
+  "admin": { "title": "Verwaltung", "users": "Mitarbeiter", "inviteUser": "Mitarbeiter einladen", "company": "Unternehmen", "stats": "Statistiken", "totalReports": "Berichte gesamt", "reportsThisMonth": "Berichte diesen Monat", "activeWorkers": "Aktive Mitarbeiter", "pendingReview": "Ausstehende Prüfung", "role": { "company_admin": "Administrator", "supervisor": "Vorgesetzter", "worker": "Mitarbeiter" }, "trade": "Gewerk", "deactivate": "Deaktivieren", "activate": "Aktivieren", "newUser": { "title": "Neuen Mitarbeiter anlegen", "email": "E-Mail", "firstName": "Vorname", "lastName": "Nachname", "role": "Rolle", "trade": "Gewerk", "phone": "Telefon", "submit": "Anlegen" } },
+  "common": { "save": "Speichern", "cancel": "Abbrechen", "delete": "Löschen", "edit": "Bearbeiten", "search": "Suchen", "filter": "Filtern", "loading": "Laden...", "error": "Fehler", "success": "Erfolgreich", "close": "Schließen", "back": "Zurück", "noData": "Keine Daten verfügbar" },
+  "language": { "label": "Sprache", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" }
+}

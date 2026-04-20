@@ -1,0 +1,27 @@
+{
+  "nav": { "dashboard": "Dashboard", "newReport": "Nuovo rapporto", "history": "Cronologia", "admin": "Amministrazione", "logout": "Disconnetti", "settings": "Impostazioni" },
+  "login": { "title": "Accedi a BauDok", "subtitle": "Rapporti giornalieri di cantiere semplificati", "email": "Indirizzo e-mail", "password": "Password", "submit": "Accedi", "error": "E-mail o password non validi", "loading": "Accesso in corso..." },
+  "dashboard": { "welcome": "Benvenuto", "reportsToday": "Rapporti oggi", "reportsThisWeek": "Rapporti questa settimana", "pendingReview": "In attesa di revisione", "recentReports": "Rapporti recenti", "newReport": "Crea nuovo rapporto", "noReports": "Nessun rapporto ancora." },
+  "report": {
+    "new": "Nuovo rapporto giornaliero", "date": "Data", "project": "Progetto", "noProject": "Nessun progetto",
+    "weather": "Meteo", "temperature": "Temperatura (°C)", "rawInput": "Descrivi la tua giornata lavorativa",
+    "rawInputPlaceholder": "es. Oggi ho posato cavi elettrici al piano terra, circa 8 ore...",
+    "voiceStart": "Avvia input vocale", "voiceStop": "Ferma registrazione", "voiceListening": "In ascolto...",
+    "voiceNotSupported": "L'input vocale non è supportato da questo browser.",
+    "generate": "Genera rapporto", "regenerate": "Rigenera", "generating": "Generazione rapporto in corso...",
+    "save": "Salva rapporto", "saving": "Salvataggio...", "saved": "Rapporto salvato",
+    "generateError": "Impossibile generare il rapporto. Per favore riprova.",
+    "status": { "draft": "Bozza", "generated": "Generato", "reviewed": "Revisionato", "sent": "Inviato" },
+    "categories": { "work_performed": "Lavori eseguiti", "materials_used": "Materiali utilizzati", "equipment": "Attrezzatura / Macchinari", "personnel": "Personale", "obstacle": "Ostacoli / Problemi", "safety": "Sicurezza", "note": "Altre note" },
+    "summary": "Riepilogo", "rawInputLabel": "Input originale",
+    "exportPdf": "Scarica PDF", "exportCsv": "Esporta CSV", "exportExcel": "Esporta Excel",
+    "sendEmail": "Invia per e-mail", "emailRecipient": "E-mail destinatario", "sendEmailConfirm": "Invia e-mail",
+    "emailSent": "E-mail inviata", "review": "Segna come revisionato",
+    "reviewNotes": "Note di revisione (opzionale)", "reviewConfirm": "Approva rapporto", "reviewed": "Il rapporto è stato revisionato",
+    "durationHours": "Ore", "quantity": "Quantità", "noEntries": "Nessuna voce disponibile."
+  },
+  "history": { "title": "Cronologia rapporti", "filterByProject": "Filtra per progetto", "filterByStatus": "Filtra per stato", "filterByWorker": "Filtra per lavoratore", "dateFrom": "Da", "dateTo": "A", "bulkExport": "Esportazione massiva", "noResults": "Nessun rapporto trovato.", "allProjects": "Tutti i progetti", "allStatuses": "Tutti gli stati", "allWorkers": "Tutti i lavoratori" },
+  "admin": { "title": "Amministrazione", "users": "Dipendenti", "inviteUser": "Invita dipendente", "company": "Azienda", "stats": "Statistiche", "totalReports": "Rapporti totali", "reportsThisMonth": "Rapporti questo mese", "activeWorkers": "Lavoratori attivi", "pendingReview": "In attesa di revisione", "role": { "company_admin": "Amministratore", "supervisor": "Supervisore", "worker": "Lavoratore" }, "trade": "Mestiere", "deactivate": "Disattiva", "activate": "Attiva", "newUser": { "title": "Crea nuovo dipendente", "email": "E-mail", "firstName": "Nome", "lastName": "Cognome", "role": "Ruolo", "trade": "Mestiere", "phone": "Telefono", "submit": "Crea" } },
+  "common": { "save": "Salva", "cancel": "Annulla", "delete": "Elimina", "edit": "Modifica", "search": "Cerca", "filter": "Filtra", "loading": "Caricamento...", "error": "Errore", "success": "Successo", "close": "Chiudi", "back": "Indietro", "noData": "Nessun dato disponibile" },
+  "language": { "label": "Lingua", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" }
+}

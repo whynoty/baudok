@@ -47,6 +47,11 @@ class TestMeView:
         assert response.status_code == status.HTTP_200_OK
         assert response.data['data']['phone'] == '+49123456789'
 
+    def test_patch_preferred_language(self, worker_client):
+        response = worker_client.patch('/api/v1/auth/me/', {'preferred_language': 'en'})
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data['data']['preferred_language'] == 'en'
+
 
 @pytest.mark.django_db
 class TestAdminUserViews:

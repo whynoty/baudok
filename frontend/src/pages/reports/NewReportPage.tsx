@@ -1,0 +1,175 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useMutation } from '@tanstack/react-query'
+import { aiApi } from '../../api/ai'
+import { reportsApi } from '../../api/reports'
+import { useProjects } from '../../hooks/useProjects'
+import { Button, Input, Select, Textarea, Spinner } from '../../components/ui'
+import { VoiceInput } from '../../components/reports/VoiceInput'
+import { GeneratedPreview } from '../../components/reports/GeneratedPreview'
+import type { DailyReport } from '../../api/types'
+
+export default function NewReportPage() {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { data: projectsData } = useProjects({ is_active: true })
+
+  const today = new Date().toISOString().split('T')[0]
+  const [reportDate, setReportDate] = useState(today)
+  const [projectId, setProjectId] = useState('')
+  const [weather, setWeather] = useState('')
+  const [temperature, setTemperature] = useState('')
+  const [rawInput, setRawInput] = useState('')
+  const [generatedReport, setGeneratedReport] = useState<DailyReport | null>(null)
+  const [generateError, setGenerateError] = useState('')
+
+  const generateMutation = useMutation({
+    mutationFn: () =>
+      aiApi
+        .generate({
+          raw_input: rawInput,
+          project_id: projectId || undefined,
+          report_date: reportDate,
+          weather: weather || undefined,
+          temperature: temperature ? Number(temperature) : undefined,
+        })
+        .then((r) => r.data.report),
+    onSuccess: (report) => {
+      setGeneratedReport(report)
+      setGenerateError('')
+    },
+    onError: () => {
+      setGenerateError(t('report.generateError'))
+    },
+  })
+
+  const saveMutation = useMutation({
+    mutationFn: () => {
+      if (!generatedReport) return Promise.reject(new Error('No report'))
+      return reportsApi
+        .update(generatedReport.id, { status: 'generated' })
+        .then((r) => r.data)
+    },
+    onSuccess: (saved) => {
+      navigate(`/reports/${saved.id}`)
+    },
+  })
+
+  const handleRegenerate = () => {
+    setGeneratedReport(null)
+    generateMutation.mutate()
+  }
+
+  const projectOptions = [
+    { value: '', label: t('report.noProject') },
+    ...(projectsData?.results ?? []).map((p) => ({ value: p.id, label: p.name })),
+  ]
+
+  return (
+    <div style={{ maxWidth: '720px' }}>
+      <h1 style={{ marginBottom: '24px' }}>{t('report.new')}</h1>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr 1fr',
+          gap: '12px',
+          marginBottom: '16px',
+        }}
+      >
+        <Input
+          label={t('report.date')}
+          type="date"
+          value={reportDate}
+          onChange={(e) => setReportDate(e.target.value)}
+        />
+        <Select
+          label={t('report.project')}
+          options={projectOptions}
+          value={projectId}
+          onChange={(e) => setProjectId(e.target.value)}
+        />
+        <Input
+          label={t('report.weather')}
+          type="text"
+          value={weather}
+          onChange={(e) => setWeather(e.target.value)}
+        />
+        <Input
+          label={t('report.temperature')}
+          type="number"
+          value={temperature}
+          onChange={(e) => setTemperature(e.target.value)}
+        />
+      </div>
+
+      <div style={{ marginBottom: '12px' }}>
+        <VoiceInput
+          onTranscript={(text) => setRawInput(text)}
+        />
+      </div>
+
+      <div style={{ marginBottom: '16px' }}>
+        <Textarea
+          label={t('report.rawInput')}
+          placeholder={t('report.rawInputPlaceholder')}
+          rows={6}
+          value={rawInput}
+          onChange={(e) => setRawInput(e.target.value)}
+        />
+      </div>
+
+      {generateError && (
+        <div
+          role="alert"
+          style={{
+            padding: '10px 12px',
+            background: '#f8d7da',
+            border: '1px solid #f5c2c7',
+            borderRadius: 'var(--radius)',
+            color: 'var(--color-error)',
+            fontSize: '13px',
+            marginBottom: '16px',
+          }}
+        >
+          {generateError}
+        </div>
+      )}
+
+      {generateMutation.isPending ? (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '20px',
+            background: 'var(--color-primary-light)',
+            borderRadius: 'var(--radius)',
+            marginBottom: '16px',
+          }}
+        >
+          <Spinner size={20} />
+          <span>{t('report.generating')}</span>
+        </div>
+      ) : (
+        <Button
+          onClick={() => generateMutation.mutate()}
+          disabled={!rawInput.trim()}
+          type="button"
+        >
+          {t('report.generate')}
+        </Button>
+      )}
+
+      {generatedReport && !generateMutation.isPending && (
+        <GeneratedPreview
+          report={generatedReport}
+          onSave={() => saveMutation.mutate()}
+          onRegenerate={handleRegenerate}
+          isSaving={saveMutation.isPending}
+        />
+      )}
+    </div>
+  )
+}

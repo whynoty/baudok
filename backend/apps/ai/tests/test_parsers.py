@@ -53,3 +53,13 @@ class TestParseAIResponse:
         except AIParseError as exc:
             assert hasattr(exc, 'raw')
             assert exc.raw == 'bad'
+
+    def test_extra_keys_are_accepted_without_error(self):
+        """Extra fields beyond the 8 required keys must not raise."""
+        import json
+        base = json.loads(VALID_JSON)
+        base['unexpected_field'] = 'some value'
+        base['another_extra'] = [1, 2, 3]
+        result = parse_ai_response(json.dumps(base))
+        assert isinstance(result, dict)
+        assert 'work_performed' in result

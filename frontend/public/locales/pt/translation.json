@@ -1,0 +1,27 @@
+{
+  "nav": { "dashboard": "Painel", "newReport": "Novo relatório", "history": "Histórico", "admin": "Administração", "logout": "Sair", "settings": "Configurações" },
+  "login": { "title": "Entrar no BauDok", "subtitle": "Relatórios diários de obra simplificados", "email": "Endereço de e-mail", "password": "Senha", "submit": "Entrar", "error": "E-mail ou senha inválidos", "loading": "Entrando..." },
+  "dashboard": { "welcome": "Bem-vindo", "reportsToday": "Relatórios hoje", "reportsThisWeek": "Relatórios esta semana", "pendingReview": "Revisão pendente", "recentReports": "Relatórios recentes", "newReport": "Criar novo relatório", "noReports": "Nenhum relatório ainda." },
+  "report": {
+    "new": "Novo relatório diário", "date": "Data", "project": "Projeto", "noProject": "Sem projeto",
+    "weather": "Clima", "temperature": "Temperatura (°C)", "rawInput": "Descreva sua jornada de trabalho",
+    "rawInputPlaceholder": "ex. Hoje instalei cabos elétricos no térreo, aprox. 8 horas...",
+    "voiceStart": "Iniciar entrada de voz", "voiceStop": "Parar gravação", "voiceListening": "Ouvindo...",
+    "voiceNotSupported": "Entrada de voz não é suportada por este navegador.",
+    "generate": "Gerar relatório", "regenerate": "Regenerar", "generating": "Gerando relatório...",
+    "save": "Salvar relatório", "saving": "Salvando...", "saved": "Relatório salvo",
+    "generateError": "Não foi possível gerar o relatório. Por favor, tente novamente.",
+    "status": { "draft": "Rascunho", "generated": "Gerado", "reviewed": "Revisado", "sent": "Enviado" },
+    "categories": { "work_performed": "Trabalhos realizados", "materials_used": "Materiais utilizados", "equipment": "Equipamentos / Máquinas", "personnel": "Pessoal", "obstacle": "Obstáculos / Problemas", "safety": "Segurança", "note": "Outras notas" },
+    "summary": "Resumo", "rawInputLabel": "Entrada original",
+    "exportPdf": "Baixar PDF", "exportCsv": "Exportar CSV", "exportExcel": "Exportar Excel",
+    "sendEmail": "Enviar por e-mail", "emailRecipient": "E-mail do destinatário", "sendEmailConfirm": "Enviar e-mail",
+    "emailSent": "E-mail foi enviado", "review": "Marcar como revisado",
+    "reviewNotes": "Notas de revisão (opcional)", "reviewConfirm": "Aprovar relatório", "reviewed": "O relatório foi revisado",
+    "durationHours": "Horas", "quantity": "Quantidade", "noEntries": "Nenhuma entrada disponível."
+  },
+  "history": { "title": "Histórico de relatórios", "filterByProject": "Filtrar por projeto", "filterByStatus": "Filtrar por status", "filterByWorker": "Filtrar por trabalhador", "dateFrom": "De", "dateTo": "Até", "bulkExport": "Exportação em massa", "noResults": "Nenhum relatório encontrado.", "allProjects": "Todos os projetos", "allStatuses": "Todos os status", "allWorkers": "Todos os trabalhadores" },
+  "admin": { "title": "Administração", "users": "Funcionários", "inviteUser": "Convidar funcionário", "company": "Empresa", "stats": "Estatísticas", "totalReports": "Total de relatórios", "reportsThisMonth": "Relatórios este mês", "activeWorkers": "Trabalhadores ativos", "pendingReview": "Revisão pendente", "role": { "company_admin": "Administrador", "supervisor": "Supervisor", "worker": "Trabalhador" }, "trade": "Ofício", "deactivate": "Desativar", "activate": "Ativar", "newUser": { "title": "Criar novo funcionário", "email": "E-mail", "firstName": "Nome", "lastName": "Sobrenome", "role": "Função", "trade": "Ofício", "phone": "Telefone", "submit": "Criar" } },
+  "common": { "save": "Salvar", "cancel": "Cancelar", "delete": "Excluir", "edit": "Editar", "search": "Buscar", "filter": "Filtrar", "loading": "Carregando...", "error": "Erro", "success": "Sucesso", "close": "Fechar", "back": "Voltar", "noData": "Nenhum dado disponível" },
+  "language": { "label": "Idioma", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" }
+}

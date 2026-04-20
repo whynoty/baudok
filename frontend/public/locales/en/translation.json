@@ -1,0 +1,27 @@
+{
+  "nav": { "dashboard": "Dashboard", "newReport": "New Report", "history": "History", "admin": "Administration", "logout": "Logout", "settings": "Settings" },
+  "login": { "title": "Sign in to BauDok", "subtitle": "Construction daily reports made easy", "email": "Email address", "password": "Password", "submit": "Sign in", "error": "Invalid email or password", "loading": "Signing in..." },
+  "dashboard": { "welcome": "Welcome", "reportsToday": "Reports today", "reportsThisWeek": "Reports this week", "pendingReview": "Pending review", "recentReports": "Recent reports", "newReport": "Create new report", "noReports": "No reports yet." },
+  "report": {
+    "new": "New Daily Report", "date": "Date", "project": "Project", "noProject": "No project",
+    "weather": "Weather", "temperature": "Temperature (°C)", "rawInput": "Describe your workday",
+    "rawInputPlaceholder": "e.g. Today I laid electrical cables on the ground floor, approx. 8 hours...",
+    "voiceStart": "Start voice input", "voiceStop": "Stop recording", "voiceListening": "Listening...",
+    "voiceNotSupported": "Voice input is not supported by this browser.",
+    "generate": "Generate report", "regenerate": "Regenerate", "generating": "Generating report...",
+    "save": "Save report", "saving": "Saving...", "saved": "Report saved",
+    "generateError": "Could not generate report. Please try again.",
+    "status": { "draft": "Draft", "generated": "Generated", "reviewed": "Reviewed", "sent": "Sent" },
+    "categories": { "work_performed": "Work performed", "materials_used": "Materials used", "equipment": "Equipment / Machinery", "personnel": "Personnel", "obstacle": "Obstacles / Problems", "safety": "Safety", "note": "Other notes" },
+    "summary": "Summary", "rawInputLabel": "Original input",
+    "exportPdf": "Download PDF", "exportCsv": "Export CSV", "exportExcel": "Export Excel",
+    "sendEmail": "Send by email", "emailRecipient": "Recipient email", "sendEmailConfirm": "Send email",
+    "emailSent": "Email has been sent", "review": "Mark as reviewed",
+    "reviewNotes": "Review notes (optional)", "reviewConfirm": "Approve report", "reviewed": "Report has been reviewed",
+    "durationHours": "Hours", "quantity": "Quantity", "noEntries": "No entries available."
+  },
+  "history": { "title": "Report history", "filterByProject": "Filter by project", "filterByStatus": "Filter by status", "filterByWorker": "Filter by worker", "dateFrom": "From", "dateTo": "To", "bulkExport": "Bulk export", "noResults": "No reports found.", "allProjects": "All projects", "allStatuses": "All statuses", "allWorkers": "All workers" },
+  "admin": { "title": "Administration", "users": "Employees", "inviteUser": "Invite employee", "company": "Company", "stats": "Statistics", "totalReports": "Total reports", "reportsThisMonth": "Reports this month", "activeWorkers": "Active workers", "pendingReview": "Pending review", "role": { "company_admin": "Administrator", "supervisor": "Supervisor", "worker": "Worker" }, "trade": "Trade", "deactivate": "Deactivate", "activate": "Activate", "newUser": { "title": "Create new employee", "email": "Email", "firstName": "First name", "lastName": "Last name", "role": "Role", "trade": "Trade", "phone": "Phone", "submit": "Create" } },
+  "common": { "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit", "search": "Search", "filter": "Filter", "loading": "Loading...", "error": "Error", "success": "Success", "close": "Close", "back": "Back", "noData": "No data available" },
+  "language": { "label": "Language", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" }
+}
