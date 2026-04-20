@@ -6,6 +6,7 @@ import { adminApi } from '../../api/admin'
 import { useReports } from '../../hooks/useReports'
 import { Button, Card, Spinner } from '../../components/ui'
 import { ReportCard } from '../../components/reports/ReportCard'
+import OfflineDraftsCard from './OfflineDraftsCard'
 
 function StatCard({ label, value }: { label: string; value: number | undefined }) {
   return (
@@ -62,6 +63,8 @@ export default function DashboardPage() {
         </h1>
         <Button onClick={() => navigate('/reports/new')}>{t('dashboard.newReport')}</Button>
       </div>
+
+      <OfflineDraftsCard />
 
       <div style={{ display: 'flex', gap: '16px', marginBottom: '32px' }}>
         <StatCard

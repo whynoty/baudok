@@ -39,5 +39,14 @@
   "history": { "title": "Historial de informes", "filterByProject": "Filtrar por proyecto", "filterByStatus": "Filtrar por estado", "filterByWorker": "Filtrar por trabajador", "dateFrom": "Desde", "dateTo": "Hasta", "bulkExport": "Exportación masiva", "noResults": "No se encontraron informes.", "allProjects": "Todos los proyectos", "allStatuses": "Todos los estados", "allWorkers": "Todos los trabajadores" },
   "admin": { "title": "Administración", "users": "Empleados", "inviteUser": "Invitar empleado", "company": "Empresa", "stats": "Estadísticas", "totalReports": "Informes totales", "reportsThisMonth": "Informes este mes", "activeWorkers": "Trabajadores activos", "pendingReview": "Revisión pendiente", "role": { "company_admin": "Administrador", "supervisor": "Supervisor", "worker": "Trabajador" }, "trade": "Oficio", "deactivate": "Desactivar", "activate": "Activar", "newUser": { "title": "Crear nuevo empleado", "email": "Correo", "firstName": "Nombre", "lastName": "Apellido", "role": "Rol", "trade": "Oficio", "phone": "Teléfono", "submit": "Crear" } },
   "common": { "save": "Guardar", "cancel": "Cancelar", "delete": "Eliminar", "edit": "Editar", "search": "Buscar", "filter": "Filtrar", "loading": "Cargando...", "error": "Error", "success": "Éxito", "close": "Cerrar", "back": "Volver", "noData": "No hay datos disponibles" },
-  "language": { "label": "Idioma", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" }
+  "language": { "label": "Idioma", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" },
+  "offline": {
+    "banner": "Sin conexión a internet – los cambios se guardan localmente.",
+    "draftsQueued": "{{count}} borrador(es) esperando sincronización.",
+    "reconnected": "Conexión restablecida – sincronizando {{count}} borrador(es).",
+    "pendingDrafts": "{{count}} borrador(es) guardado(s) sin conexión",
+    "savedLocally": "Sin internet – el informe se enviará cuando se restaure la conexión.",
+    "syncNow": "Sincronizar ahora",
+    "syncing": "Sincronizando..."
+  }
 }

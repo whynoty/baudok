@@ -5,6 +5,8 @@ import { useMutation } from '@tanstack/react-query'
 import { aiApi } from '../../api/ai'
 import { reportsApi } from '../../api/reports'
 import { useProjects } from '../../hooks/useProjects'
+import { useOfflineStore } from '../../store/offlineStore'
+import { useOnlineStatus } from '../../hooks/useOnlineStatus'
 import { Button, Input, Select, Textarea, Spinner } from '../../components/ui'
 import { VoiceInput } from '../../components/reports/VoiceInput'
 import { GeneratedPreview } from '../../components/reports/GeneratedPreview'
@@ -15,6 +17,8 @@ export default function NewReportPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { data: projectsData } = useProjects({ is_active: true })
+  const { addDraft } = useOfflineStore()
+  const isOnline = useOnlineStatus()
 
   const today = new Date().toISOString().split('T')[0]
   const [reportDate, setReportDate] = useState(today)
@@ -26,6 +30,7 @@ export default function NewReportPage() {
   const [generateError, setGenerateError] = useState('')
   const [savedReport, setSavedReport] = useState<DailyReport | null>(null)
   const [reportPhotos, setReportPhotos] = useState<ReportPhoto[]>([])
+  const [offlineSaved, setOfflineSaved] = useState(false)
 
   const generateMutation = useMutation({
     mutationFn: () =>
@@ -58,6 +63,23 @@ export default function NewReportPage() {
       setSavedReport(saved)
     },
   })
+
+  const handleGenerate = () => {
+    if (!isOnline) {
+      const selectedProject = projectsData?.results.find((p) => p.id === projectId) ?? null
+      addDraft({
+        reportDate,
+        projectId: projectId || null,
+        projectName: selectedProject?.name ?? null,
+        weather,
+        temperature: temperature ? Number(temperature) : null,
+        rawInput,
+      })
+      setOfflineSaved(true)
+      return
+    }
+    generateMutation.mutate()
+  }
 
   const handleRegenerate = () => {
     setGeneratedReport(null)
@@ -140,7 +162,35 @@ export default function NewReportPage() {
         </div>
       )}
 
-      {generateMutation.isPending ? (
+      {offlineSaved && (
+        <div
+          style={{
+            background: '#fff3cd',
+            border: '1px solid #ffc107',
+            borderRadius: 6,
+            padding: 12,
+            marginBottom: 16,
+          }}
+        >
+          {t('offline.savedLocally')}
+          <button
+            onClick={() => navigate('/dashboard')}
+            style={{
+              marginLeft: 12,
+              background: '#1a6b3c',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 4,
+              padding: '4px 10px',
+              cursor: 'pointer',
+            }}
+          >
+            {t('nav.dashboard')}
+          </button>
+        </div>
+      )}
+
+      {!offlineSaved && generateMutation.isPending ? (
         <div
           style={{
             display: 'flex',
@@ -155,15 +205,15 @@ export default function NewReportPage() {
           <Spinner size={20} />
           <span>{t('report.generating')}</span>
         </div>
-      ) : (
+      ) : !offlineSaved ? (
         <Button
-          onClick={() => generateMutation.mutate()}
+          onClick={handleGenerate}
           disabled={!rawInput.trim()}
           type="button"
         >
           {t('report.generate')}
         </Button>
-      )}
+      ) : null}
 
       {generatedReport && !generateMutation.isPending && !savedReport && (
         <GeneratedPreview

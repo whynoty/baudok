@@ -39,5 +39,14 @@
   "history": { "title": "Report history", "filterByProject": "Filter by project", "filterByStatus": "Filter by status", "filterByWorker": "Filter by worker", "dateFrom": "From", "dateTo": "To", "bulkExport": "Bulk export", "noResults": "No reports found.", "allProjects": "All projects", "allStatuses": "All statuses", "allWorkers": "All workers" },
   "admin": { "title": "Administration", "users": "Employees", "inviteUser": "Invite employee", "company": "Company", "stats": "Statistics", "totalReports": "Total reports", "reportsThisMonth": "Reports this month", "activeWorkers": "Active workers", "pendingReview": "Pending review", "role": { "company_admin": "Administrator", "supervisor": "Supervisor", "worker": "Worker" }, "trade": "Trade", "deactivate": "Deactivate", "activate": "Activate", "newUser": { "title": "Create new employee", "email": "Email", "firstName": "First name", "lastName": "Last name", "role": "Role", "trade": "Trade", "phone": "Phone", "submit": "Create" } },
   "common": { "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit", "search": "Search", "filter": "Filter", "loading": "Loading...", "error": "Error", "success": "Success", "close": "Close", "back": "Back", "noData": "No data available" },
-  "language": { "label": "Language", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" }
+  "language": { "label": "Language", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" },
+  "offline": {
+    "banner": "No internet connection – changes are saved locally.",
+    "draftsQueued": "{{count}} draft(s) waiting to sync.",
+    "reconnected": "Back online – syncing {{count}} draft(s).",
+    "pendingDrafts": "{{count}} offline draft(s) pending",
+    "savedLocally": "No internet – report will be submitted when connection is restored.",
+    "syncNow": "Sync now",
+    "syncing": "Syncing..."
+  }
 }

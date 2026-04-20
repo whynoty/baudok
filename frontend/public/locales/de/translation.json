@@ -39,5 +39,14 @@
   "history": { "title": "Berichtsverlauf", "filterByProject": "Nach Projekt filtern", "filterByStatus": "Nach Status filtern", "filterByWorker": "Nach Mitarbeiter filtern", "dateFrom": "Von", "dateTo": "Bis", "bulkExport": "Sammelexport", "noResults": "Keine Berichte gefunden.", "allProjects": "Alle Projekte", "allStatuses": "Alle Status", "allWorkers": "Alle Mitarbeiter" },
   "admin": { "title": "Verwaltung", "users": "Mitarbeiter", "inviteUser": "Mitarbeiter einladen", "company": "Unternehmen", "stats": "Statistiken", "totalReports": "Berichte gesamt", "reportsThisMonth": "Berichte diesen Monat", "activeWorkers": "Aktive Mitarbeiter", "pendingReview": "Ausstehende Prüfung", "role": { "company_admin": "Administrator", "supervisor": "Vorgesetzter", "worker": "Mitarbeiter" }, "trade": "Gewerk", "deactivate": "Deaktivieren", "activate": "Aktivieren", "newUser": { "title": "Neuen Mitarbeiter anlegen", "email": "E-Mail", "firstName": "Vorname", "lastName": "Nachname", "role": "Rolle", "trade": "Gewerk", "phone": "Telefon", "submit": "Anlegen" } },
   "common": { "save": "Speichern", "cancel": "Abbrechen", "delete": "Löschen", "edit": "Bearbeiten", "search": "Suchen", "filter": "Filtern", "loading": "Laden...", "error": "Fehler", "success": "Erfolgreich", "close": "Schließen", "back": "Zurück", "noData": "Keine Daten verfügbar" },
-  "language": { "label": "Sprache", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" }
+  "language": { "label": "Sprache", "de": "Deutsch", "en": "English", "es": "Español", "it": "Italiano", "pt": "Português" },
+  "offline": {
+    "banner": "Keine Internetverbindung – Änderungen werden lokal gespeichert.",
+    "draftsQueued": "{{count}} Entwurf(e) warten auf Übertragung.",
+    "reconnected": "Verbindung wiederhergestellt – {{count}} Entwurf(e) werden übertragen.",
+    "pendingDrafts": "{{count}} offline gespeicherte(r) Entwurf(e)",
+    "savedLocally": "Kein Internet – Bericht wird nach Verbindungswiederherstellung übermittelt.",
+    "syncNow": "Jetzt synchronisieren",
+    "syncing": "Wird übertragen..."
+  }
 }
