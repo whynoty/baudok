@@ -17,6 +17,10 @@ export function Sidebar() {
     { to: '/reports', label: t('nav.history') },
   ]
 
+  if (user?.role === 'supervisor' || user?.role === 'company_admin') {
+    navItems.push({ to: '/admin/templates', label: t('templates.manage') })
+  }
+
   if (user?.role === 'company_admin') {
     navItems.push({ to: '/admin', label: t('nav.admin') })
     navItems.push({ to: '/admin/settings', label: t('nav.settings') })

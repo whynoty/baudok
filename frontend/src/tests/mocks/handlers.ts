@@ -49,6 +49,33 @@ export const mockReport = {
   ],
 }
 
+export const mockTemplates = [
+  {
+    id: 'tpl-uuid-1',
+    name: 'Elektro Standardtag',
+    trade: 'Elektriker',
+    description: '',
+    raw_input_template: 'Heute Leitungen verlegt',
+    is_company_wide: true,
+    usage_count: 5,
+    created_by_name: 'Admin',
+    created_at: '2026-04-01T00:00:00Z',
+    updated_at: '2026-04-01T00:00:00Z',
+  },
+  {
+    id: 'tpl-uuid-2',
+    name: 'Sanitär Basis',
+    trade: 'Sanitär',
+    description: 'Basis-Vorlage',
+    raw_input_template: 'Rohre verlegt',
+    is_company_wide: false,
+    usage_count: 2,
+    created_by_name: 'Hans',
+    created_at: '2026-04-02T00:00:00Z',
+    updated_at: '2026-04-02T00:00:00Z',
+  },
+]
+
 export const handlers = [
   http.post('*/auth/login/', () =>
     HttpResponse.json({ access: 'mock-access-token', refresh: 'mock-refresh-token' })
@@ -75,6 +102,45 @@ export const handlers = [
     })
   ),
   http.get('*/admin-panel/users/', () => HttpResponse.json([mockUser])),
+  http.get('*/templates/', () =>
+    HttpResponse.json({
+      count: 2,
+      next: null,
+      previous: null,
+      results: mockTemplates,
+    })
+  ),
+  // from_report must be registered before the generic :id handlers
+  http.post('*/templates/from_report/', () =>
+    HttpResponse.json(
+      {
+        id: 'tpl-uuid-3',
+        name: 'Neue Vorlage',
+        trade: '',
+        description: '',
+        raw_input_template: 'x',
+        is_company_wide: false,
+        usage_count: 0,
+        created_by_name: null,
+        created_at: '2026-04-21T00:00:00Z',
+        updated_at: '2026-04-21T00:00:00Z',
+      },
+      { status: 201 }
+    )
+  ),
+  http.post('*/templates/', () =>
+    HttpResponse.json(
+      { ...mockTemplates[0], id: 'tpl-uuid-new' },
+      { status: 201 }
+    )
+  ),
+  http.post('*/templates/:id/use/', () =>
+    HttpResponse.json({ ...mockTemplates[0], usage_count: 6 })
+  ),
+  http.patch('*/templates/:id/', ({ params }) =>
+    HttpResponse.json({ ...mockTemplates[0], id: params.id as string })
+  ),
+  http.delete('*/templates/:id/', () => new HttpResponse(null, { status: 204 })),
   http.get('*/admin-panel/company/', () =>
     HttpResponse.json({
       id: 'company-uuid-1',

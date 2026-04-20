@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.accounts.serializers import UserSerializer
-from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto
+from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto, ReportTemplate
 
 
 class ReportPhotoSerializer(serializers.ModelSerializer):
@@ -82,3 +82,20 @@ class SendEmailSerializer(serializers.Serializer):
 
 class ReviewSerializer(serializers.Serializer):
     notes = serializers.CharField(required=False, allow_blank=True)
+
+
+class ReportTemplateSerializer(serializers.ModelSerializer):
+    created_by_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ReportTemplate
+        fields = [
+            'id', 'name', 'trade', 'description', 'raw_input_template',
+            'is_company_wide', 'usage_count', 'created_by_name', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'usage_count', 'created_by_name', 'created_at', 'updated_at']
+
+    def get_created_by_name(self, obj):
+        if obj.created_by:
+            return obj.created_by.get_full_name()
+        return None

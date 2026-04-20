@@ -11,6 +11,7 @@ import { Button, Input, Select, Textarea, Spinner } from '../../components/ui'
 import { VoiceInput } from '../../components/reports/VoiceInput'
 import { GeneratedPreview } from '../../components/reports/GeneratedPreview'
 import { PhotoUploader } from '../../components/reports/PhotoUploader'
+import TemplatePicker from '../../components/reports/TemplatePicker'
 import type { DailyReport, ReportPhoto } from '../../api/types'
 
 export default function NewReportPage() {
@@ -93,7 +94,17 @@ export default function NewReportPage() {
 
   return (
     <div style={{ maxWidth: '720px' }}>
-      <h1 style={{ marginBottom: '24px' }}>{t('report.new')}</h1>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '24px',
+        }}
+      >
+        <h1 style={{ margin: 0 }}>{t('report.new')}</h1>
+        <TemplatePicker onSelect={(tpl) => setRawInput(tpl.raw_input_template)} />
+      </div>
 
       <div
         style={{

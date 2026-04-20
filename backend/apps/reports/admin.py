@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto
+from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto, ReportTemplate
 
 
 class ReportEntryInline(admin.TabularInline):
@@ -41,3 +41,10 @@ class EmailDeliveryAdmin(admin.ModelAdmin):
 class ReportPhotoAdmin(admin.ModelAdmin):
     list_display = ['report', 'caption', 'uploaded_by', 'created_at']
     list_filter = ['report__company']
+
+
+@admin.register(ReportTemplate)
+class ReportTemplateAdmin(admin.ModelAdmin):
+    list_display = ['name', 'trade', 'company', 'is_company_wide', 'usage_count', 'created_by']
+    list_filter = ['company', 'trade', 'is_company_wide']
+    search_fields = ['name', 'trade']

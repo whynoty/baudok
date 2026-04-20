@@ -101,3 +101,16 @@ export interface GenerateReportPayload {
   weather?: string
   temperature?: number
 }
+
+export interface ReportTemplate {
+  id: string
+  name: string
+  trade: string
+  description: string
+  raw_input_template: string
+  is_company_wide: boolean
+  usage_count: number
+  created_by_name: string | null
+  created_at: string
+  updated_at: string
+}

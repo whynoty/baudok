@@ -9,6 +9,7 @@ import { ReportStatusBadge } from '../../components/reports/ReportStatusBadge'
 import { ExportMenu } from '../../components/reports/ExportMenu'
 import { PhotoGrid } from '../../components/reports/PhotoGrid'
 import { PhotoUploader } from '../../components/reports/PhotoUploader'
+import SaveAsTemplateButton from '../../components/reports/SaveAsTemplateButton'
 import RoleGuard from '../../components/auth/RoleGuard'
 import { useAuthStore } from '../../store/authStore'
 import type { EntryCategory, ReportPhoto } from '../../api/types'
@@ -280,8 +281,16 @@ export default function ReportDetailPage() {
           padding: '12px 24px',
           display: 'flex',
           justifyContent: 'flex-end',
+          alignItems: 'center',
+          gap: '8px',
         }}
       >
+        {(isOwner || currentUser?.role === 'supervisor' || currentUser?.role === 'company_admin') && (
+          <SaveAsTemplateButton
+            reportId={report.id}
+            rawInputText={report.raw_input_text}
+          />
+        )}
         <ExportMenu reportId={report.id} />
       </div>
     </div>

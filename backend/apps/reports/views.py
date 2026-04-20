@@ -1,8 +1,10 @@
 import io
+from django.db.models import Q
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from rest_framework import status, viewsets
+from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -13,7 +15,7 @@ from rest_framework.views import APIView
 from apps.accounts.permissions import IsSameCompany, IsSupervisorOrAdmin, IsOwnerOrSupervisorOrAdmin
 from .export import generate_csv, generate_excel
 from .filters import DailyReportFilter, ProjectFilter
-from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto
+from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto, ReportTemplate
 from .serializers import (
     DailyReportSerializer,
     DailyReportUpdateSerializer,
@@ -21,6 +23,7 @@ from .serializers import (
     ProjectSerializer,
     ReportEntrySerializer,
     ReportPhotoSerializer,
+    ReportTemplateSerializer,
     ReviewSerializer,
     SendEmailSerializer,
 )
@@ -447,3 +450,76 @@ class BulkExportView(APIView):
             response = HttpResponse(csv_bytes, content_type='text/csv; charset=utf-8')
             response['Content-Disposition'] = 'attachment; filename="berichte-export.csv"'
             return response
+
+
+# ---------------------------------------------------------------------------
+# Report Templates (Vorlagen)
+# ---------------------------------------------------------------------------
+
+class ReportTemplateViewSet(viewsets.ModelViewSet):
+    """
+    CRUD for ReportTemplate (Vorlagen).
+
+    GET    /api/v1/templates/              — list (filtered by role)
+    POST   /api/v1/templates/              — create
+    GET    /api/v1/templates/{uuid}/       — retrieve
+    PATCH  /api/v1/templates/{uuid}/       — partial update
+    DELETE /api/v1/templates/{uuid}/       — destroy
+    POST   /api/v1/templates/{uuid}/use/   — increment usage_count
+    POST   /api/v1/templates/from_report/  — create from existing DailyReport
+    """
+    serializer_class = ReportTemplateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        qs = ReportTemplate.objects.filter(company=user.company)
+        # workers see company-wide templates + their own personal templates
+        if user.role == 'worker':
+            qs = qs.filter(
+                Q(is_company_wide=True) | Q(created_by=user)
+            )
+        # filter by trade if provided
+        trade = self.request.query_params.get('trade')
+        if trade:
+            qs = qs.filter(trade__icontains=trade)
+        return qs
+
+    def perform_create(self, serializer):
+        serializer.save(company=self.request.user.company, created_by=self.request.user)
+
+    @action(detail=True, methods=['post'])
+    def use(self, request, pk=None):
+        """Increment usage_count when a template is applied."""
+        template = self.get_object()
+        template.usage_count += 1
+        template.save(update_fields=['usage_count'])
+        return Response(ReportTemplateSerializer(template).data)
+
+    @action(detail=False, methods=['post'])
+    def from_report(self, request):
+        """Create a template from an existing DailyReport."""
+        report_id = request.data.get('report_id')
+        name = request.data.get('name', '')
+        description = request.data.get('description', '')
+        is_company_wide = request.data.get('is_company_wide', False)
+
+        report = get_object_or_404(
+            DailyReport,
+            id=report_id,
+            company=request.user.company,
+        )
+        # workers can only create templates from their own reports
+        if request.user.role == 'worker' and report.created_by != request.user:
+            raise PermissionDenied()
+
+        template = ReportTemplate.objects.create(
+            company=request.user.company,
+            created_by=request.user,
+            name=name or f'Vorlage vom {report.report_date}',
+            trade=request.user.trade if hasattr(request.user, 'trade') else '',
+            description=description,
+            raw_input_template=report.raw_input_text,
+            is_company_wide=is_company_wide,
+        )
+        return Response(ReportTemplateSerializer(template).data, status=status.HTTP_201_CREATED)

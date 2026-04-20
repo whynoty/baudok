@@ -143,3 +143,24 @@ class ReportPhoto(models.Model):
 
     def __str__(self):
         return f'Foto zu {self.report} — {self.caption or self.id}'
+
+
+class ReportTemplate(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='report_templates')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_templates')
+    name = models.CharField(max_length=255)
+    trade = models.CharField(max_length=100, blank=True)
+    description = models.CharField(max_length=500, blank=True)
+    raw_input_template = models.TextField()  # pre-filled raw input text
+    is_company_wide = models.BooleanField(default=False)  # visible to all company workers if True
+    usage_count = models.PositiveIntegerField(default=0)  # incremented each time template is used
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-usage_count', 'name']
+        indexes = [models.Index(fields=['company', 'trade'])]
+
+    def __str__(self):
+        return f'{self.name} ({self.trade})'
