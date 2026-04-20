@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Bautagesbericht {{ report.report_date }}</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm 15mm 28mm 15mm;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ---- Header ---- */
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 3px solid #1F4E79;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+        }
+        .company-info h1 {
+            font-size: 16pt;
+            font-weight: 700;
+            color: #1F4E79;
+            margin: 0 0 3px 0;
+        }
+        .company-info p {
+            margin: 0;
+            font-size: 8.5pt;
+            color: #555;
+            line-height: 1.4;
+        }
+        .company-logo {
+            max-height: 55px;
+            max-width: 140px;
+            object-fit: contain;
+        }
+        .report-title-block { text-align: right; }
+        .report-title-block h2 {
+            font-size: 13pt;
+            font-weight: 700;
+            color: #1F4E79;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ---- Status badge ---- */
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 8pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .status-draft     { background: #FFF3CD; color: #856404; }
+        .status-generated { background: #D1ECF1; color: #0C5460; }
+        .status-reviewed  { background: #D4EDDA; color: #155724; }
+        .status-sent      { background: #CCE5FF; color: #004085; }
+
+        /* ---- Meta grid ---- */
+        .meta-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            border: 1px solid #C5D5E8;
+        }
+        .meta-grid td {
+            padding: 5px 10px;
+            font-size: 9pt;
+            border: 1px solid #C5D5E8;
+            vertical-align: top;
+        }
+        .meta-label {
+            font-weight: 600;
+            color: #1F4E79;
+            font-size: 8.5pt;
+            background-color: #F4F8FC;
+            width: 120px;
+            white-space: nowrap;
+        }
+
+        /* ---- Sections ---- */
+        .report-section { margin-bottom: 14px; page-break-inside: avoid; }
+        .section-header {
+            background-color: #1F4E79;
+            color: #FFFFFF;
+            padding: 5px 10px;
+            font-size: 9.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .entry-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #C5D5E8;
+            border-top: none;
+        }
+        .entry-table td {
+            padding: 5px 10px;
+            font-size: 9pt;
+            vertical-align: top;
+            border-bottom: 1px solid #E8EFF6;
+        }
+        .entry-table tr:last-child td { border-bottom: none; }
+        .entry-table tr:nth-child(even) td { background-color: #F9FBFD; }
+        .entry-idx  { color: #999; font-size: 8pt; width: 22px; text-align: center; }
+        .entry-content { }
+        .entry-meta { color: #555; font-size: 8pt; text-align: right; white-space: nowrap; }
+
+        /* ---- Summary ---- */
+        .summary-box {
+            background: #EBF2FA;
+            border: 1px solid #A8C4E0;
+            border-left: 4px solid #1F4E79;
+            padding: 8px 12px;
+            margin-bottom: 14px;
+            font-size: 9.5pt;
+            font-style: italic;
+            color: #1a1a1a;
+        }
+
+        /* ---- Signature ---- */
+        .signature-area {
+            margin-top: 20px;
+            display: flex;
+            gap: 40px;
+        }
+        .signature-block { flex: 1; }
+        .signature-space { height: 30px; }
+        .signature-line { border-top: 1px solid #333; padding-top: 4px; }
+        .signature-label { font-size: 8pt; color: #555; }
+
+        /* ---- Footer ---- */
+        .page-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 7.5pt;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #ccc;
+            padding: 4px 15mm;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Footer (renders on every page) -->
+    <div class="page-footer">
+        <span>{{ company.name }} — Bautagesbericht {{ report.report_date }}</span>
+        <span>Erstellt mit BauDok</span>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- Header                                                             -->
+    <!-- ================================================================ -->
+    <div class="report-header">
+        <div class="company-info">
+            {% if company.logo %}
+                <img src="{{ company.logo.url }}" alt="{{ company.name }}" class="company-logo">
+            {% else %}
+                <h1>{{ company.name }}</h1>
+            {% endif %}
+            {% if company.address %}
+                <p>{{ company.address|linebreaksbr }}</p>
+            {% endif %}
+            {% if company.tax_id %}
+                <p>USt-IdNr.: {{ company.tax_id }}</p>
+            {% endif %}
+        </div>
+
+        <div class="report-title-block">
+            <h2>Bautagesbericht</h2>
+            <p style="font-size:10pt; font-weight:600; margin:0;">
+                {{ report.report_date|date:"d. F Y" }}
+            </p>
+            <p style="margin:4px 0 0 0;">
+                <span class="status-badge status-{{ report.status }}">
+                    {{ report.get_status_display }}
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- Meta information                                                   -->
+    <!-- ================================================================ -->
+    <table class="meta-grid">
+        <tr>
+            <td class="meta-label">Datum</td>
+            <td>{{ report.report_date|date:"d.m.Y" }}</td>
+            <td class="meta-label">Projekt</td>
+            <td>{% if report.project %}{{ report.project.name }}{% else %}—{% endif %}</td>
+        </tr>
+        <tr>
+            <td class="meta-label">Mitarbeiter</td>
+            <td>{{ report.created_by.get_full_name }}</td>
+            <td class="meta-label">Gewerk</td>
+            <td>{{ report.created_by.trade|default:"—" }}</td>
+        </tr>
+        {% if report.project %}
+        <tr>
+            <td class="meta-label">Bauvorhaben-Nr.</td>
+            <td>{{ report.project.project_number|default:"—" }}</td>
+            <td class="meta-label">Auftraggeber</td>
+            <td>{{ report.project.client_name|default:"—" }}</td>
+        </tr>
+        <tr>
+            <td class="meta-label">Baustellenadresse</td>
+            <td colspan="3">{{ report.project.address }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td class="meta-label">Wetter</td>
+            <td>{{ report.weather|default:"—" }}</td>
+            <td class="meta-label">Temperatur</td>
+            <td>{% if report.temperature is not None %}{{ report.temperature }} °C{% else %}—{% endif %}</td>
+        </tr>
+        {% if report.reviewed_by %}
+        <tr>
+            <td class="meta-label">Geprüft von</td>
+            <td colspan="3">{{ report.reviewed_by.get_full_name }}</td>
+        </tr>
+        {% endif %}
+    </table>
+
+    <!-- ================================================================ -->
+    <!-- Report sections — grouped by category                             -->
+    <!-- ================================================================ -->
+
+    {% with work_entries=entries|dictsort:"position" %}
+
+    {# Work performed #}
+    {% with section_entries=entries %}
+    {% for cat_code, cat_label in cat_choices %}
+        {% with filtered=entries %}
+        {# Filter entries by category in the view — passed as separate context vars #}
+        {% endwith %}
+    {% endfor %}
+    {% endwith %}
+
+    {# We render ALL entries grouped by category using a simple loop #}
+    {# Categories in desired display order #}
+    {% for cat_code, cat_label in cat_choices_ordered %}
+        {% with cat_entries=entries %}
+        {# Build category-specific lists #}
+        {% endwith %}
+    {% endfor %}
+
+    {# Simpler approach: just list all entries with visible category headers #}
+    {% regroup entries by get_category_display as grouped_entries %}
+    {% for group in grouped_entries %}
+    <div class="report-section">
+        <div class="section-header">{{ group.grouper }}</div>
+        <table class="entry-table">
+            {% for entry in group.list %}
+            <tr>
+                <td class="entry-idx">{{ forloop.counter }}</td>
+                <td class="entry-content">{{ entry.content }}</td>
+                <td class="entry-meta">
+                    {% if entry.duration_hours %}{{ entry.duration_hours }} h{% endif %}
+                    {% if entry.quantity %}{{ entry.quantity }}{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endfor %}
+
+    {% endwith %}
+
+    <!-- ================================================================ -->
+    <!-- Summary                                                            -->
+    <!-- ================================================================ -->
+    {% if report.structured_data.summary %}
+    <div class="summary-box">
+        <strong>Zusammenfassung:</strong><br>
+        {{ report.structured_data.summary }}
+    </div>
+    {% endif %}
+
+    <!-- ================================================================ -->
+    <!-- Signature                                                          -->
+    <!-- ================================================================ -->
+    <div class="signature-area">
+        <div class="signature-block">
+            <div class="signature-space"></div>
+            <div class="signature-line">
+                <span class="signature-label">
+                    Mitarbeiter: {{ report.created_by.get_full_name }}
+                </span>
+            </div>
+        </div>
+        <div class="signature-block">
+            <div class="signature-space"></div>
+            <div class="signature-line">
+                <span class="signature-label">
+                    {% if report.reviewed_by %}
+                        Geprüft: {{ report.reviewed_by.get_full_name }}
+                    {% else %}
+                        Vorgesetzter / Bauleitung
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI metadata (small print) -->
+    <p style="font-size: 7pt; color: #aaa; margin-top: 12px; text-align: right;">
+        Generiert mit KI-Unterstützung ({{ report.ai_model_used }})
+        am {{ report.created_at|date:"d.m.Y H:i" }} Uhr
+    </p>
+
+</body>
+</html>
