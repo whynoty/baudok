@@ -1,7 +1,22 @@
 from rest_framework import serializers
 
 from apps.accounts.serializers import UserSerializer
-from .models import DailyReport, EmailDelivery, Project, ReportEntry
+from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto
+
+
+class ReportPhotoSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ReportPhoto
+        fields = ['id', 'image', 'image_url', 'caption', 'taken_at', 'latitude', 'longitude', 'position', 'created_at']
+        read_only_fields = ['id', 'created_at', 'image_url']
+
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        if obj.image and request:
+            return request.build_absolute_uri(obj.image.url)
+        return None
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -23,6 +38,7 @@ class ReportEntrySerializer(serializers.ModelSerializer):
 
 class DailyReportSerializer(serializers.ModelSerializer):
     entries = ReportEntrySerializer(many=True, read_only=True)
+    photos = ReportPhotoSerializer(many=True, read_only=True)
     created_by = UserSerializer(read_only=True)
     reviewed_by = UserSerializer(read_only=True)
     project = ProjectSerializer(read_only=True)
@@ -37,13 +53,13 @@ class DailyReportSerializer(serializers.ModelSerializer):
             'pdf_file', 'pdf_generated_at',
             'ai_model_used', 'ai_tokens_used',
             'created_at', 'updated_at',
-            'entries',
+            'entries', 'photos',
         ]
         read_only_fields = [
             'id', 'created_by', 'reviewed_by', 'status',
             'structured_data', 'pdf_file', 'pdf_generated_at',
             'ai_model_used', 'ai_tokens_used',
-            'created_at', 'updated_at', 'entries',
+            'created_at', 'updated_at', 'entries', 'photos',
         ]
 
 

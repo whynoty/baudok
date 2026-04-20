@@ -18,7 +18,23 @@
     "sendEmail": "Enviar por correo", "emailRecipient": "Correo del destinatario", "sendEmailConfirm": "Enviar correo",
     "emailSent": "El correo ha sido enviado", "review": "Marcar como revisado",
     "reviewNotes": "Notas de revisión (opcional)", "reviewConfirm": "Aprobar informe", "reviewed": "El informe ha sido revisado",
-    "durationHours": "Horas", "quantity": "Cantidad", "noEntries": "No hay entradas disponibles."
+    "durationHours": "Horas", "quantity": "Cantidad", "noEntries": "No hay entradas disponibles.",
+    "photos": {
+      "title": "Fotos de obra",
+      "add": "Añadir fotos",
+      "dropzone": "Arrastra fotos aquí o haz clic",
+      "uploading": "Subiendo...",
+      "caption": "Descripción",
+      "captionPlaceholder": "p. ej. Techo PB antes del hormigonado",
+      "delete": "Eliminar foto",
+      "deleteConfirm": "¿Realmente eliminar esta foto?",
+      "maxReached": "Máximo 20 fotos por informe",
+      "gps": "GPS",
+      "takenAt": "Tomada",
+      "addLater": "Las fotos también se pueden añadir más tarde",
+      "empty": "Aún no hay fotos",
+      "compressing": "Comprimiendo imagen..."
+    }
   },
   "history": { "title": "Historial de informes", "filterByProject": "Filtrar por proyecto", "filterByStatus": "Filtrar por estado", "filterByWorker": "Filtrar por trabajador", "dateFrom": "Desde", "dateTo": "Hasta", "bulkExport": "Exportación masiva", "noResults": "No se encontraron informes.", "allProjects": "Todos los proyectos", "allStatuses": "Todos los estados", "allWorkers": "Todos los trabajadores" },
   "admin": { "title": "Administración", "users": "Empleados", "inviteUser": "Invitar empleado", "company": "Empresa", "stats": "Estadísticas", "totalReports": "Informes totales", "reportsThisMonth": "Informes este mes", "activeWorkers": "Trabajadores activos", "pendingReview": "Revisión pendiente", "role": { "company_admin": "Administrador", "supervisor": "Supervisor", "worker": "Trabajador" }, "trade": "Oficio", "deactivate": "Desactivar", "activate": "Activar", "newUser": { "title": "Crear nuevo empleado", "email": "Correo", "firstName": "Nombre", "lastName": "Apellido", "role": "Rol", "trade": "Oficio", "phone": "Teléfono", "submit": "Crear" } },

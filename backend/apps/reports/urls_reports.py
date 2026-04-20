@@ -8,6 +8,7 @@ from .views import (
     ReportEntryDetailView,
     ReportEntryListView,
     ReportListView,
+    ReportPhotoViewSet,
     ReportReviewView,
     SendEmailView,
 )
@@ -22,4 +23,15 @@ urlpatterns = [
     path('<uuid:pk>/export/csv/', CSVExportView.as_view(), name='report-csv'),
     path('<uuid:pk>/export/excel/', ExcelExportView.as_view(), name='report-excel'),
     path('<uuid:pk>/send-email/', SendEmailView.as_view(), name='report-send-email'),
+    # Photo endpoints
+    path(
+        '<uuid:report_pk>/photos/',
+        ReportPhotoViewSet.as_view({'get': 'list', 'post': 'create'}),
+        name='report-photos',
+    ),
+    path(
+        '<uuid:report_pk>/photos/<uuid:pk>/',
+        ReportPhotoViewSet.as_view({'get': 'retrieve', 'patch': 'partial_update', 'delete': 'destroy'}),
+        name='report-photo-detail',
+    ),
 ]

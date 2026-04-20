@@ -18,7 +18,23 @@
     "sendEmail": "Per E-Mail senden", "emailRecipient": "Empfänger E-Mail", "sendEmailConfirm": "E-Mail senden",
     "emailSent": "E-Mail wurde versendet", "review": "Als geprüft markieren",
     "reviewNotes": "Prüfnotizen (optional)", "reviewConfirm": "Bericht freigeben", "reviewed": "Bericht wurde geprüft",
-    "durationHours": "Stunden", "quantity": "Menge", "noEntries": "Keine Einträge vorhanden."
+    "durationHours": "Stunden", "quantity": "Menge", "noEntries": "Keine Einträge vorhanden.",
+    "photos": {
+      "title": "Baustellenfotos",
+      "add": "Fotos hinzufügen",
+      "dropzone": "Fotos hier ablegen oder klicken",
+      "uploading": "Wird hochgeladen...",
+      "caption": "Beschriftung",
+      "captionPlaceholder": "z.B. Decke EG vor Betonage",
+      "delete": "Foto löschen",
+      "deleteConfirm": "Dieses Foto wirklich löschen?",
+      "maxReached": "Maximal 20 Fotos pro Bericht",
+      "gps": "GPS",
+      "takenAt": "Aufgenommen",
+      "addLater": "Fotos können auch später hinzugefügt werden",
+      "empty": "Noch keine Fotos vorhanden",
+      "compressing": "Bild wird komprimiert..."
+    }
   },
   "history": { "title": "Berichtsverlauf", "filterByProject": "Nach Projekt filtern", "filterByStatus": "Nach Status filtern", "filterByWorker": "Nach Mitarbeiter filtern", "dateFrom": "Von", "dateTo": "Bis", "bulkExport": "Sammelexport", "noResults": "Keine Berichte gefunden.", "allProjects": "Alle Projekte", "allStatuses": "Alle Status", "allWorkers": "Alle Mitarbeiter" },
   "admin": { "title": "Verwaltung", "users": "Mitarbeiter", "inviteUser": "Mitarbeiter einladen", "company": "Unternehmen", "stats": "Statistiken", "totalReports": "Berichte gesamt", "reportsThisMonth": "Berichte diesen Monat", "activeWorkers": "Aktive Mitarbeiter", "pendingReview": "Ausstehende Prüfung", "role": { "company_admin": "Administrator", "supervisor": "Vorgesetzter", "worker": "Mitarbeiter" }, "trade": "Gewerk", "deactivate": "Deaktivieren", "activate": "Aktivieren", "newUser": { "title": "Neuen Mitarbeiter anlegen", "email": "E-Mail", "firstName": "Vorname", "lastName": "Nachname", "role": "Rolle", "trade": "Gewerk", "phone": "Telefon", "submit": "Anlegen" } },

@@ -18,7 +18,23 @@
     "sendEmail": "Invia per e-mail", "emailRecipient": "E-mail destinatario", "sendEmailConfirm": "Invia e-mail",
     "emailSent": "E-mail inviata", "review": "Segna come revisionato",
     "reviewNotes": "Note di revisione (opzionale)", "reviewConfirm": "Approva rapporto", "reviewed": "Il rapporto è stato revisionato",
-    "durationHours": "Ore", "quantity": "Quantità", "noEntries": "Nessuna voce disponibile."
+    "durationHours": "Ore", "quantity": "Quantità", "noEntries": "Nessuna voce disponibile.",
+    "photos": {
+      "title": "Foto di cantiere",
+      "add": "Aggiungi foto",
+      "dropzone": "Trascina le foto qui o clicca",
+      "uploading": "Caricamento in corso...",
+      "caption": "Didascalia",
+      "captionPlaceholder": "es. Soffitto PT prima della gettata",
+      "delete": "Elimina foto",
+      "deleteConfirm": "Eliminare davvero questa foto?",
+      "maxReached": "Massimo 20 foto per rapporto",
+      "gps": "GPS",
+      "takenAt": "Scattata",
+      "addLater": "Le foto possono essere aggiunte anche in seguito",
+      "empty": "Nessuna foto ancora",
+      "compressing": "Compressione immagine..."
+    }
   },
   "history": { "title": "Cronologia rapporti", "filterByProject": "Filtra per progetto", "filterByStatus": "Filtra per stato", "filterByWorker": "Filtra per lavoratore", "dateFrom": "Da", "dateTo": "A", "bulkExport": "Esportazione massiva", "noResults": "Nessun rapporto trovato.", "allProjects": "Tutti i progetti", "allStatuses": "Tutti gli stati", "allWorkers": "Tutti i lavoratori" },
   "admin": { "title": "Amministrazione", "users": "Dipendenti", "inviteUser": "Invita dipendente", "company": "Azienda", "stats": "Statistiche", "totalReports": "Rapporti totali", "reportsThisMonth": "Rapporti questo mese", "activeWorkers": "Lavoratori attivi", "pendingReview": "In attesa di revisione", "role": { "company_admin": "Amministratore", "supervisor": "Supervisore", "worker": "Lavoratore" }, "trade": "Mestiere", "deactivate": "Disattiva", "activate": "Attiva", "newUser": { "title": "Crea nuovo dipendente", "email": "E-mail", "firstName": "Nome", "lastName": "Cognome", "role": "Ruolo", "trade": "Mestiere", "phone": "Telefono", "submit": "Crea" } },

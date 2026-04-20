@@ -1,5 +1,5 @@
 import apiClient from './client'
-import type { DailyReport, PaginatedResponse, ReportEntry } from './types'
+import type { DailyReport, PaginatedResponse, ReportEntry, ReportPhoto } from './types'
 
 export interface ReportFilters {
   page?: number
@@ -31,4 +31,17 @@ export const reportsApi = {
     apiClient.post(`/reports/${id}/send-email/`, { recipient_email }),
   bulkExport: (params: ReportFilters & { format: 'csv' | 'excel' }) =>
     apiClient.get('/export/reports/', { params, responseType: 'blob' }),
+  listPhotos: (reportId: string) =>
+    apiClient.get<ReportPhoto[]>(`/reports/${reportId}/photos/`),
+  uploadPhoto: (reportId: string, formData: FormData) =>
+    apiClient.post<ReportPhoto>(`/reports/${reportId}/photos/`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
+  updatePhoto: (
+    reportId: string,
+    photoId: string,
+    data: { caption?: string; position?: number },
+  ) => apiClient.patch<ReportPhoto>(`/reports/${reportId}/photos/${photoId}/`, data),
+  deletePhoto: (reportId: string, photoId: string) =>
+    apiClient.delete(`/reports/${reportId}/photos/${photoId}/`),
 }

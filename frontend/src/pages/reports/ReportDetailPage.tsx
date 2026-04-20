@@ -7,8 +7,11 @@ import { reportsApi } from '../../api/reports'
 import { Spinner, Button, Textarea, Card } from '../../components/ui'
 import { ReportStatusBadge } from '../../components/reports/ReportStatusBadge'
 import { ExportMenu } from '../../components/reports/ExportMenu'
+import { PhotoGrid } from '../../components/reports/PhotoGrid'
+import { PhotoUploader } from '../../components/reports/PhotoUploader'
 import RoleGuard from '../../components/auth/RoleGuard'
-import type { EntryCategory } from '../../api/types'
+import { useAuthStore } from '../../store/authStore'
+import type { EntryCategory, ReportPhoto } from '../../api/types'
 
 const CATEGORY_ORDER: EntryCategory[] = [
   'work_performed',
@@ -28,6 +31,8 @@ export default function ReportDetailPage() {
   const { data: report, isLoading, isError } = useReport(id ?? '')
   const [rawInputOpen, setRawInputOpen] = useState(false)
   const [reviewNotes, setReviewNotes] = useState('')
+  const [photos, setPhotos] = useState<ReportPhoto[] | null>(null)
+  const currentUser = useAuthStore((s) => s.user)
 
   const reviewMutation = useMutation({
     mutationFn: () => reportsApi.review(id ?? '', reviewNotes || undefined),
@@ -59,6 +64,15 @@ export default function ReportDetailPage() {
     if (entries.length) acc[cat] = entries
     return acc
   }, {})
+
+  // Derive effective photo list: local state overrides what came with the report
+  const effectivePhotos = photos ?? (report.photos ?? [])
+
+  const isOwner = currentUser?.id === report.created_by.id
+  const canEditPhotos =
+    isOwner ||
+    currentUser?.role === 'supervisor' ||
+    currentUser?.role === 'company_admin'
 
   return (
     <div style={{ maxWidth: '800px', paddingBottom: '80px' }}>
@@ -145,6 +159,48 @@ export default function ReportDetailPage() {
           <p>{report.structured_data.summary as string}</p>
         </section>
       )}
+
+      {/* Photos section */}
+      <section style={{ marginBottom: '24px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            marginBottom: '12px',
+            borderBottom: '1px solid var(--color-primary-light)',
+            paddingBottom: '4px',
+          }}
+        >
+          <h3 style={{ color: 'var(--color-primary)', margin: 0 }}>
+            {t('report.photos.title')}
+          </h3>
+          {effectivePhotos.length > 0 && (
+            <span
+              style={{
+                background: 'var(--color-primary-light)',
+                color: 'var(--color-primary)',
+                fontSize: '11px',
+                fontWeight: 600,
+                padding: '2px 8px',
+                borderRadius: '10px',
+              }}
+            >
+              {effectivePhotos.length}
+            </span>
+          )}
+        </div>
+
+        {canEditPhotos ? (
+          <PhotoUploader
+            reportId={report.id}
+            photos={effectivePhotos}
+            onPhotosChange={setPhotos}
+          />
+        ) : (
+          <PhotoGrid photos={effectivePhotos} />
+        )}
+      </section>
 
       {/* Collapsible raw input */}
       <section style={{ marginBottom: '24px' }}>

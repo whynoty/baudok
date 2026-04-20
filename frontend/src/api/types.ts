@@ -45,6 +45,18 @@ export interface ReportEntry {
   quantity: string
 }
 
+export interface ReportPhoto {
+  id: string
+  image: string
+  image_url: string
+  caption: string
+  taken_at: string | null
+  latitude: string | null
+  longitude: string | null
+  position: number
+  created_at: string
+}
+
 export interface DailyReport {
   id: string
   project: Project | null
@@ -60,6 +72,7 @@ export interface DailyReport {
   created_at: string
   updated_at: string
   entries?: ReportEntry[]
+  photos?: ReportPhoto[]
 }
 
 export interface PaginatedResponse<T> {

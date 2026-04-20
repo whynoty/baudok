@@ -8,7 +8,8 @@ import { useProjects } from '../../hooks/useProjects'
 import { Button, Input, Select, Textarea, Spinner } from '../../components/ui'
 import { VoiceInput } from '../../components/reports/VoiceInput'
 import { GeneratedPreview } from '../../components/reports/GeneratedPreview'
-import type { DailyReport } from '../../api/types'
+import { PhotoUploader } from '../../components/reports/PhotoUploader'
+import type { DailyReport, ReportPhoto } from '../../api/types'
 
 export default function NewReportPage() {
   const { t } = useTranslation()
@@ -23,6 +24,8 @@ export default function NewReportPage() {
   const [rawInput, setRawInput] = useState('')
   const [generatedReport, setGeneratedReport] = useState<DailyReport | null>(null)
   const [generateError, setGenerateError] = useState('')
+  const [savedReport, setSavedReport] = useState<DailyReport | null>(null)
+  const [reportPhotos, setReportPhotos] = useState<ReportPhoto[]>([])
 
   const generateMutation = useMutation({
     mutationFn: () =>
@@ -52,7 +55,7 @@ export default function NewReportPage() {
         .then((r) => r.data)
     },
     onSuccess: (saved) => {
-      navigate(`/reports/${saved.id}`)
+      setSavedReport(saved)
     },
   })
 
@@ -162,13 +165,41 @@ export default function NewReportPage() {
         </Button>
       )}
 
-      {generatedReport && !generateMutation.isPending && (
+      {generatedReport && !generateMutation.isPending && !savedReport && (
         <GeneratedPreview
           report={generatedReport}
           onSave={() => saveMutation.mutate()}
           onRegenerate={handleRegenerate}
           isSaving={saveMutation.isPending}
         />
+      )}
+
+      {savedReport && (
+        <div style={{ marginTop: '32px' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '12px',
+            }}
+          >
+            <h2 style={{ margin: 0 }}>{t('report.photos.title')}</h2>
+            <span style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
+              {t('report.photos.addLater')}
+            </span>
+          </div>
+          <PhotoUploader
+            reportId={savedReport.id}
+            photos={reportPhotos}
+            onPhotosChange={setReportPhotos}
+          />
+          <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+            <Button type="button" onClick={() => navigate(`/reports/${savedReport.id}`)}>
+              {t('report.save')}
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   )

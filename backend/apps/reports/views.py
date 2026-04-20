@@ -1,8 +1,11 @@
 import io
 from django.http import FileResponse, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from rest_framework import status
+from rest_framework import status, viewsets
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,13 +13,14 @@ from rest_framework.views import APIView
 from apps.accounts.permissions import IsSameCompany, IsSupervisorOrAdmin, IsOwnerOrSupervisorOrAdmin
 from .export import generate_csv, generate_excel
 from .filters import DailyReportFilter, ProjectFilter
-from .models import DailyReport, EmailDelivery, Project, ReportEntry
+from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto
 from .serializers import (
     DailyReportSerializer,
     DailyReportUpdateSerializer,
     EmailDeliverySerializer,
     ProjectSerializer,
     ReportEntrySerializer,
+    ReportPhotoSerializer,
     ReviewSerializer,
     SendEmailSerializer,
 )
@@ -36,10 +40,52 @@ def _company_report_queryset(user):
     """Base queryset filtered by company and user role."""
     qs = DailyReport.objects.filter(company=user.company).select_related(
         'created_by', 'reviewed_by', 'project'
-    ).prefetch_related('entries')
+    ).prefetch_related('entries', 'photos')
     if user.role == 'worker':
         qs = qs.filter(created_by=user)
     return qs
+
+
+# ---------------------------------------------------------------------------
+# Photo views
+# ---------------------------------------------------------------------------
+
+class ReportPhotoViewSet(viewsets.ModelViewSet):
+    """
+    Nested viewset for Baustellenfotos attached to a DailyReport.
+
+    All routes are nested under /reports/{report_pk}/photos/.
+    Workers may only access photos belonging to their own reports.
+    Cross-tenant access always returns 404 (report lookup filtered by company).
+    """
+    serializer_class = ReportPhotoSerializer
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def _get_report(self):
+        report_id = self.kwargs['report_pk']
+        # Cross-tenant: get_object_or_404 filters by company → returns 404 for wrong tenant
+        report = get_object_or_404(
+            DailyReport,
+            id=report_id,
+            company=self.request.user.company,
+        )
+        if self.request.user.role == 'worker' and report.created_by != self.request.user:
+            raise PermissionDenied()
+        return report
+
+    def get_queryset(self):
+        report = self._get_report()
+        return ReportPhoto.objects.filter(report=report)
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+
+    def perform_create(self, serializer):
+        report = self._get_report()
+        serializer.save(report=report, uploaded_by=self.request.user)
 
 
 # ---------------------------------------------------------------------------

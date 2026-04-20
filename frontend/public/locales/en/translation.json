@@ -18,7 +18,23 @@
     "sendEmail": "Send by email", "emailRecipient": "Recipient email", "sendEmailConfirm": "Send email",
     "emailSent": "Email has been sent", "review": "Mark as reviewed",
     "reviewNotes": "Review notes (optional)", "reviewConfirm": "Approve report", "reviewed": "Report has been reviewed",
-    "durationHours": "Hours", "quantity": "Quantity", "noEntries": "No entries available."
+    "durationHours": "Hours", "quantity": "Quantity", "noEntries": "No entries available.",
+    "photos": {
+      "title": "Site Photos",
+      "add": "Add photos",
+      "dropzone": "Drop photos here or click",
+      "uploading": "Uploading...",
+      "caption": "Caption",
+      "captionPlaceholder": "e.g. Ground floor ceiling before concreting",
+      "delete": "Delete photo",
+      "deleteConfirm": "Really delete this photo?",
+      "maxReached": "Maximum 20 photos per report",
+      "gps": "GPS",
+      "takenAt": "Taken",
+      "addLater": "Photos can also be added later",
+      "empty": "No photos yet",
+      "compressing": "Compressing image..."
+    }
   },
   "history": { "title": "Report history", "filterByProject": "Filter by project", "filterByStatus": "Filter by status", "filterByWorker": "Filter by worker", "dateFrom": "From", "dateTo": "To", "bulkExport": "Bulk export", "noResults": "No reports found.", "allProjects": "All projects", "allStatuses": "All statuses", "allWorkers": "All workers" },
   "admin": { "title": "Administration", "users": "Employees", "inviteUser": "Invite employee", "company": "Company", "stats": "Statistics", "totalReports": "Total reports", "reportsThisMonth": "Reports this month", "activeWorkers": "Active workers", "pendingReview": "Pending review", "role": { "company_admin": "Administrator", "supervisor": "Supervisor", "worker": "Worker" }, "trade": "Trade", "deactivate": "Deactivate", "activate": "Activate", "newUser": { "title": "Create new employee", "email": "Email", "firstName": "First name", "lastName": "Last name", "role": "Role", "trade": "Trade", "phone": "Phone", "submit": "Create" } },
