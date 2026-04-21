@@ -160,6 +160,44 @@
             background: white;
         }
 
+        /* ---- Digital signatures ---- */
+        .signatures { margin-top: 24px; page-break-inside: avoid; }
+        .signatures h3 {
+            font-size: 9.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #ffffff;
+            background-color: #1F4E79;
+            padding: 5px 10px;
+            margin: 0 0 12px 0;
+        }
+        .sig-grid {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .sig-block {
+            flex: 1;
+            min-width: 180px;
+            border: 1px solid #C5D5E8;
+            border-radius: 3px;
+            padding: 8px 10px;
+            background: #F9FBFD;
+        }
+        .sig-block img {
+            display: block;
+            max-width: 200px;
+            border: 1px solid #ccc;
+            margin-bottom: 6px;
+        }
+        .sig-block p {
+            font-size: 8pt;
+            color: #555;
+            margin: 0;
+            line-height: 1.4;
+        }
+
         /* ---- Photos ---- */
         .photos-section { margin-top: 24px; }
         .photos-section h3 {
@@ -350,6 +388,23 @@
         Generiert mit KI-Unterstützung ({{ report.ai_model_used }})
         am {{ report.created_at|date:"d.m.Y H:i" }} Uhr
     </p>
+
+    <!-- ================================================================ -->
+    <!-- Digitale Unterschriften                                            -->
+    <!-- ================================================================ -->
+    {% if signatures %}
+    <section class="signatures">
+        <h3>Unterschriften</h3>
+        <div class="sig-grid">
+            {% for sig in signatures %}
+            <div class="sig-block">
+                <img src="{{ sig.signature_image }}" alt="Unterschrift">
+                <p>{{ sig.signer_name }} ({{ sig.get_signer_role_display }})<br>{{ sig.signed_at|date:"d.m.Y H:i" }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
 
     <!-- ================================================================ -->
     <!-- Baustellenfotos                                                    -->

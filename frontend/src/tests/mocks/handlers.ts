@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import type { AnalyticsData } from '../../api/types'
+import type { AnalyticsData, SignatureRecord } from '../../api/types'
 
 export const mockAnalytics: AnalyticsData = {
   reports_by_day: [
@@ -104,6 +104,15 @@ export const mockWeather = {
   unit: '°C',
 }
 
+export const mockSignature: SignatureRecord = {
+  id: 'sig-uuid-1',
+  signer_name: 'Hans Müller',
+  signer_role: 'worker',
+  signed_at: '2026-04-21T17:00:00Z',
+  signature_image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+  ip_address: null,
+}
+
 export const handlers = [
   http.get('*/analytics/', () => HttpResponse.json(mockAnalytics)),
   http.get('*/weather/', () => HttpResponse.json(mockWeather)),
@@ -181,5 +190,9 @@ export const handlers = [
       preferred_language: 'de',
       logo: null,
     })
+  ),
+  http.get('*/reports/*/signatures/', () => HttpResponse.json({ data: [] })),
+  http.post('*/reports/*/signatures/', () =>
+    HttpResponse.json({ data: mockSignature }, { status: 201 })
   ),
 ]

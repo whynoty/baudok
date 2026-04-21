@@ -159,3 +159,12 @@ export interface AnalyticsData {
   top_workers: TopWorker[]
   submission_rate: SubmissionRate
 }
+
+export interface SignatureRecord {
+  id: string
+  signer_name: string
+  signer_role: 'worker' | 'supervisor'
+  signed_at: string
+  signature_image: string
+  ip_address: string | null
+}

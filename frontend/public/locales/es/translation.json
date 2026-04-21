@@ -80,6 +80,17 @@
     "syncNow": "Sincronizar ahora",
     "syncing": "Sincronizando..."
   },
+  "signature": {
+    "title": "Firmas",
+    "sign": "Firmar",
+    "clear": "Borrar",
+    "success": "Firma guardada.",
+    "alreadySigned": "Ya ha firmado este informe.",
+    "worker": "Trabajador",
+    "supervisor": "Supervisor",
+    "signedBy": "Firmado por",
+    "at": "el"
+  },
   "analytics": {
     "title": "Análisis",
     "reportsByDay": "Informes por día",

@@ -80,6 +80,17 @@
     "syncNow": "Jetzt synchronisieren",
     "syncing": "Wird übertragen..."
   },
+  "signature": {
+    "title": "Unterschriften",
+    "sign": "Unterschreiben",
+    "clear": "Löschen",
+    "success": "Unterschrift gespeichert.",
+    "alreadySigned": "Sie haben diesen Bericht bereits unterschrieben.",
+    "worker": "Mitarbeiter",
+    "supervisor": "Vorgesetzter",
+    "signedBy": "Unterzeichnet von",
+    "at": "am"
+  },
   "analytics": {
     "title": "Auswertungen",
     "reportsByDay": "Berichte pro Tag",

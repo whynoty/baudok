@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useReport } from '../../hooks/useReports'
+import { useSignatures } from '../../hooks/useSignatures'
 import { reportsApi } from '../../api/reports'
 import { Spinner, Button, Textarea, Card } from '../../components/ui'
 import { ReportStatusBadge } from '../../components/reports/ReportStatusBadge'
@@ -10,6 +11,8 @@ import { ExportMenu } from '../../components/reports/ExportMenu'
 import { PhotoGrid } from '../../components/reports/PhotoGrid'
 import { PhotoUploader } from '../../components/reports/PhotoUploader'
 import SaveAsTemplateButton from '../../components/reports/SaveAsTemplateButton'
+import { SignatureDisplay } from '../../components/reports/SignatureDisplay'
+import { SignaturePad } from '../../components/reports/SignaturePad'
 import RoleGuard from '../../components/auth/RoleGuard'
 import { useAuthStore } from '../../store/authStore'
 import type { EntryCategory, ReportPhoto } from '../../api/types'
@@ -30,6 +33,7 @@ export default function ReportDetailPage() {
   const qc = useQueryClient()
 
   const { data: report, isLoading, isError } = useReport(id ?? '')
+  const { data: signatures, refetch: refetchSignatures } = useSignatures(id ?? '')
   const [rawInputOpen, setRawInputOpen] = useState(false)
   const [reviewNotes, setReviewNotes] = useState('')
   const [photos, setPhotos] = useState<ReportPhoto[] | null>(null)
@@ -74,6 +78,14 @@ export default function ReportDetailPage() {
     isOwner ||
     currentUser?.role === 'supervisor' ||
     currentUser?.role === 'company_admin'
+
+  const currentUserSignatureRole =
+    currentUser?.role === 'supervisor' || currentUser?.role === 'company_admin'
+      ? 'supervisor'
+      : 'worker'
+
+  const alreadySigned =
+    (signatures ?? []).some((sig) => sig.signer_role === currentUserSignatureRole)
 
   return (
     <div style={{ maxWidth: '800px', paddingBottom: '80px' }}>
@@ -268,6 +280,27 @@ export default function ReportDetailPage() {
           </Card>
         )}
       </RoleGuard>
+
+      {/* Signatures section */}
+      <section style={{ marginBottom: '24px' }}>
+        <h2
+          style={{
+            marginBottom: '12px',
+            color: 'var(--color-primary)',
+            borderBottom: '1px solid var(--color-primary-light)',
+            paddingBottom: '4px',
+          }}
+        >
+          {t('signature.title')}
+        </h2>
+        <SignatureDisplay reportId={report.id} />
+        {!alreadySigned && (
+          <SignaturePad
+            reportId={report.id}
+            onSigned={() => { void refetchSignatures() }}
+          />
+        )}
+      </section>
 
       {/* Sticky export bar */}
       <div

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.accounts.serializers import UserSerializer
-from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto, ReportTemplate
+from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto, ReportTemplate, SignatureRecord
 
 
 class ReportPhotoSerializer(serializers.ModelSerializer):
@@ -99,3 +99,12 @@ class ReportTemplateSerializer(serializers.ModelSerializer):
         if obj.created_by:
             return obj.created_by.get_full_name()
         return None
+
+
+class SignatureRecordSerializer(serializers.ModelSerializer):
+    ip_address = serializers.IPAddressField(read_only=True)
+
+    class Meta:
+        model = SignatureRecord
+        fields = ['id', 'signer_name', 'signer_role', 'signed_at', 'signature_image', 'ip_address']
+        read_only_fields = ['id', 'signer_name', 'signer_role', 'signed_at', 'ip_address']

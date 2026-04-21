@@ -18,6 +18,7 @@ def generate_pdf(report) -> bytes:
         'report': report,
         'entries': report.entries.all(),
         'company': report.company,
+        'signatures': report.signatures.all(),
     }
     html_content = render_to_string('reports/daily_report.html', context)
     return HTML(string=html_content).write_pdf()

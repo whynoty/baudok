@@ -1,5 +1,6 @@
 import uuid
 from datetime import date
+from django.conf import settings
 from django.db import models
 
 from apps.accounts.models import Company, User
@@ -164,3 +165,32 @@ class ReportTemplate(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.trade})'
+
+
+class SignatureRecord(models.Model):
+    ROLE_WORKER = 'worker'
+    ROLE_SUPERVISOR = 'supervisor'
+    ROLE_CHOICES = [(ROLE_WORKER, 'Worker'), (ROLE_SUPERVISOR, 'Supervisor')]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    report = models.ForeignKey('DailyReport', on_delete=models.CASCADE, related_name='signatures')
+    signer = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='signatures',
+    )
+    signer_name = models.CharField(max_length=200)  # denormalized in case user is deleted
+    signer_role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    signature_image = models.TextField()  # base64 PNG data URL from canvas
+    signed_at = models.DateTimeField(auto_now_add=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['signed_at']
+        unique_together = [('report', 'signer_role')]  # one signature per role per report
+        verbose_name = 'Unterschrift'
+        verbose_name_plural = 'Unterschriften'
+
+    def __str__(self):
+        return f'{self.signer_name} ({self.get_signer_role_display()}) — {self.report}'

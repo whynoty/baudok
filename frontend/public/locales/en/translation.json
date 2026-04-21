@@ -80,6 +80,17 @@
     "syncNow": "Sync now",
     "syncing": "Syncing..."
   },
+  "signature": {
+    "title": "Signatures",
+    "sign": "Sign",
+    "clear": "Clear",
+    "success": "Signature saved.",
+    "alreadySigned": "You have already signed this report.",
+    "worker": "Worker",
+    "supervisor": "Supervisor",
+    "signedBy": "Signed by",
+    "at": "on"
+  },
   "analytics": {
     "title": "Analytics",
     "reportsByDay": "Reports per Day",

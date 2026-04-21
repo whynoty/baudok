@@ -10,6 +10,7 @@ urlpatterns = [
         path('admin-panel/', include('apps.accounts.urls_admin')),
         path('projects/', include('apps.reports.urls_projects')),
         path('reports/', include('apps.reports.urls_reports')),
+        path('reports/', include('apps.reports.urls_signatures')),
         path('ai/', include('apps.ai.urls')),
         path('export/', include('apps.reports.urls_export')),
         path('templates/', include('apps.reports.urls_templates')),
