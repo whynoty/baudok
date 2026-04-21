@@ -20,6 +20,7 @@ export function Sidebar() {
   if (user?.role === 'supervisor' || user?.role === 'company_admin') {
     navItems.push({ to: '/admin/templates', label: t('templates.manage') })
     navItems.push({ to: '/analytics', label: t('analytics.title') })
+    navItems.push({ to: '/admin/catalog', label: t('catalog.title') })
   }
 
   if (user?.role === 'company_admin') {

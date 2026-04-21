@@ -197,6 +197,49 @@ class SignatureRecord(models.Model):
         return f'{self.signer_name} ({self.get_signer_role_display()}) — {self.report}'
 
 
+class MaterialItem(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    company = models.ForeignKey(
+        'accounts.Company', on_delete=models.CASCADE, related_name='material_items'
+    )
+    name = models.CharField(max_length=255)
+    unit = models.CharField(max_length=50, blank=True)
+    unit_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    category = models.CharField(max_length=100, blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['name']
+        unique_together = [('company', 'name')]
+        verbose_name = 'Katalogartikel (Material)'
+        verbose_name_plural = 'Katalogartikel (Materialien)'
+
+    def __str__(self):
+        return f'{self.name} ({self.company})'
+
+
+class EquipmentItem(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    company = models.ForeignKey(
+        'accounts.Company', on_delete=models.CASCADE, related_name='equipment_items'
+    )
+    name = models.CharField(max_length=255)
+    equipment_type = models.CharField(max_length=100, blank=True)
+    daily_rate = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['name']
+        unique_together = [('company', 'name')]
+        verbose_name = 'Katalogartikel (Gerät)'
+        verbose_name_plural = 'Katalogartikel (Geräte)'
+
+    def __str__(self):
+        return f'{self.name} ({self.company})'
+
+
 class ShareLink(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     report = models.ForeignKey(

@@ -4,6 +4,8 @@ from apps.accounts.serializers import UserSerializer
 from .models import (
     DailyReport,
     EmailDelivery,
+    EquipmentItem,
+    MaterialItem,
     Project,
     ReportEntry,
     ReportPhoto,
@@ -11,6 +13,24 @@ from .models import (
     ShareLink,
     SignatureRecord,
 )
+
+
+class MaterialItemSerializer(serializers.ModelSerializer):
+    company = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = MaterialItem
+        fields = ['id', 'company', 'name', 'unit', 'unit_cost', 'category', 'is_active', 'created_at']
+        read_only_fields = ['id', 'company', 'created_at']
+
+
+class EquipmentItemSerializer(serializers.ModelSerializer):
+    company = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = EquipmentItem
+        fields = ['id', 'company', 'name', 'equipment_type', 'daily_rate', 'is_active', 'created_at']
+        read_only_fields = ['id', 'company', 'created_at']
 
 
 class ReportPhotoSerializer(serializers.ModelSerializer):

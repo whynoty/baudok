@@ -133,5 +133,23 @@
     "worker": "Trabalhador",
     "reportCount": "Relatórios",
     "totalHours": "Total de horas"
+  },
+  "catalog": {
+    "title": "Catálogo",
+    "materials": "Materiais",
+    "equipment": "Equipamentos",
+    "name": "Denominação",
+    "unit": "Unidade",
+    "category": "Categoria",
+    "unitCost": "Preço/Unidade",
+    "type": "Tipo",
+    "dailyRate": "Diária",
+    "addMaterial": "Adicionar material",
+    "addEquipment": "Adicionar equipamento",
+    "importCsv": "Importar CSV",
+    "importSuccess": "{{created}} criados, {{updated}} atualizados, {{skipped}} ignorados",
+    "empty": "Nenhuma entrada ainda.",
+    "search": "Pesquisar…",
+    "confirmDelete": "Realmente excluir?"
   }
 }

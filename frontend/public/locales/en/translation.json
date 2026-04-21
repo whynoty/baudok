@@ -133,5 +133,23 @@
     "worker": "Worker",
     "reportCount": "Reports",
     "totalHours": "Total Hours"
+  },
+  "catalog": {
+    "title": "Catalog",
+    "materials": "Materials",
+    "equipment": "Equipment",
+    "name": "Name",
+    "unit": "Unit",
+    "category": "Category",
+    "unitCost": "Unit Price",
+    "type": "Type",
+    "dailyRate": "Daily Rate",
+    "addMaterial": "Add Material",
+    "addEquipment": "Add Equipment",
+    "importCsv": "Import CSV",
+    "importSuccess": "{{created}} created, {{updated}} updated, {{skipped}} skipped",
+    "empty": "No entries yet.",
+    "search": "Search…",
+    "confirmDelete": "Really delete?"
   }
 }

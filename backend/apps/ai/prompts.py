@@ -25,6 +25,21 @@ REGELN:
 - Input kann in anderer Sprache sein — Output IMMER auf Deutsch
 """
 
+def build_catalog_hint(materials: list, equipment: list) -> str:
+    """Build an optional system-prompt addendum with company catalog items."""
+    if not materials and not equipment:
+        return ''
+    lines = ['\n\nBEKANNTE ARTIKEL DIESES UNTERNEHMENS (verwende diese Bezeichnungen wenn passend):']
+    if materials:
+        mat_lines = ', '.join(
+            f'{name} ({unit})' if unit else name for name, unit in materials
+        )
+        lines.append(f'Materialien: {mat_lines}')
+    if equipment:
+        lines.append(f'Geräte: {", ".join(equipment)}')
+    return '\n'.join(lines)
+
+
 USER_PROMPT_TEMPLATE = """Datum: {report_date}
 Projekt: {project_name}
 Gewerk: {trade}

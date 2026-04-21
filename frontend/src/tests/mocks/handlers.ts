@@ -1,5 +1,24 @@
 import { http, HttpResponse } from 'msw'
-import type { AnalyticsData, NotificationPreference, SignatureRecord, ShareLink, PublicReport } from '../../api/types'
+import type { AnalyticsData, NotificationPreference, SignatureRecord, ShareLink, PublicReport, MaterialItem, EquipmentItem } from '../../api/types'
+
+export const mockMaterialItem: MaterialItem = {
+  id: 'mat-uuid-1',
+  name: 'Zement CEM II',
+  unit: 'kg',
+  unit_cost: '0.25',
+  category: 'Baustoffe',
+  is_active: true,
+  created_at: '2026-04-01T00:00:00Z',
+}
+
+export const mockEquipmentItem: EquipmentItem = {
+  id: 'eqp-uuid-1',
+  name: 'Bagger CAT 320',
+  equipment_type: 'Erdbewegung',
+  daily_rate: '450.00',
+  is_active: true,
+  created_at: '2026-04-01T00:00:00Z',
+}
 
 export const mockAnalytics: AnalyticsData = {
   reports_by_day: [
@@ -240,4 +259,19 @@ export const handlers = [
   http.post('*/reports/*/signatures/', () =>
     HttpResponse.json({ data: mockSignature }, { status: 201 })
   ),
+  http.get('*/catalog/materials/', () => HttpResponse.json([mockMaterialItem])),
+  http.get('*/catalog/equipment/', () => HttpResponse.json([mockEquipmentItem])),
+  http.post('*/catalog/materials/', () =>
+    HttpResponse.json(mockMaterialItem, { status: 201 })
+  ),
+  http.patch('*/catalog/materials/*/', () => HttpResponse.json(mockMaterialItem)),
+  http.delete('*/catalog/materials/*/', () => new HttpResponse(null, { status: 204 })),
+  http.post('*/catalog/materials/import/', () =>
+    HttpResponse.json({ created: 2, updated: 1, skipped: 0 })
+  ),
+  http.post('*/catalog/equipment/', () =>
+    HttpResponse.json(mockEquipmentItem, { status: 201 })
+  ),
+  http.patch('*/catalog/equipment/*/', () => HttpResponse.json(mockEquipmentItem)),
+  http.delete('*/catalog/equipment/*/', () => new HttpResponse(null, { status: 204 })),
 ]

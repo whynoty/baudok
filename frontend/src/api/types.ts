@@ -203,3 +203,28 @@ export interface NotificationPreference {
   push_enabled: boolean
   email_fallback: boolean
 }
+
+export interface MaterialItem {
+  id: string
+  name: string
+  unit: string
+  unit_cost: string | null
+  category: string
+  is_active: boolean
+  created_at: string
+}
+
+export interface EquipmentItem {
+  id: string
+  name: string
+  equipment_type: string
+  daily_rate: string | null
+  is_active: boolean
+  created_at: string
+}
+
+export interface CsvImportResult {
+  created: number
+  updated: number
+  skipped: number
+}

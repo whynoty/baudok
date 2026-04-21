@@ -150,6 +150,16 @@ class GenerateReportView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
 
+        from apps.reports.models import MaterialItem, EquipmentItem
+        catalog_materials = list(
+            MaterialItem.objects.filter(company=request.user.company, is_active=True)
+            .values_list('name', 'unit')[:50]
+        )
+        catalog_equipment = list(
+            EquipmentItem.objects.filter(company=request.user.company, is_active=True)
+            .values_list('name', flat=True)[:20]
+        )
+
         try:
             ai_client = BauDokAIClient()
             structured_data, tokens_used = ai_client.generate_report(
@@ -158,6 +168,8 @@ class GenerateReportView(APIView):
                 project_name=project.name if project else 'Unbekannt',
                 worker_name=request.user.get_full_name(),
                 trade=request.user.trade,
+                catalog_materials=catalog_materials,
+                catalog_equipment=catalog_equipment,
             )
         except AIParseError as exc:
             logger.error('AIParseError during generate: %s | raw: %s', exc, exc.raw[:300])

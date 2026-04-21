@@ -10,7 +10,7 @@ from django.conf import settings
 
 from .exceptions import AIClientError, AIParseError
 from .parsers import parse_ai_response
-from .prompts import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
+from .prompts import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE, build_catalog_hint
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +34,8 @@ class BauDokAIClient:
         project_name: str,
         worker_name: str,
         trade: str,
+        catalog_materials: list = None,
+        catalog_equipment: list = None,
     ) -> Tuple[dict, int]:
         """
         Call Claude to transform free-text worker input into structured report data.
@@ -53,11 +55,14 @@ class BauDokAIClient:
             raw_input=raw_input,
         )
 
-        return self._call_with_retry(user_message)
+        system = SYSTEM_PROMPT + build_catalog_hint(
+            catalog_materials or [], catalog_equipment or []
+        )
+        return self._call_with_retry(user_message, system=system)
 
-    def _call_with_retry(self, user_message: str) -> Tuple[dict, int]:
+    def _call_with_retry(self, user_message: str, system: str = None) -> Tuple[dict, int]:
         """Make the API call; on AIParseError retry once, then re-raise."""
-        raw_text, tokens = self._call_api(user_message)
+        raw_text, tokens = self._call_api(user_message, system=system)
 
         try:
             structured_data = parse_ai_response(raw_text)
@@ -69,7 +74,7 @@ class BauDokAIClient:
             )
 
         # Retry
-        raw_text, tokens = self._call_api(user_message)
+        raw_text, tokens = self._call_api(user_message, system=system)
         try:
             structured_data = parse_ai_response(raw_text)
             return structured_data, tokens
@@ -77,7 +82,7 @@ class BauDokAIClient:
             logger.error('Second AI parse attempt failed. Giving up.')
             raise
 
-    def _call_api(self, user_message: str) -> Tuple[str, int]:
+    def _call_api(self, user_message: str, system: str = None) -> Tuple[str, int]:
         """
         Perform a single API call.
 
@@ -88,7 +93,7 @@ class BauDokAIClient:
             response = self._client.messages.create(
                 model=MODEL,
                 max_tokens=MAX_TOKENS,
-                system=SYSTEM_PROMPT,
+                system=system or SYSTEM_PROMPT,
                 messages=[
                     {'role': 'user', 'content': user_message},
                 ],

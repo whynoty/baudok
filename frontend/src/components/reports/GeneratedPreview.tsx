@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Textarea } from '../ui'
+import { MaterialAutocomplete } from './MaterialAutocomplete'
 import type { DailyReport, ReportEntry, EntryCategory } from '../../api/types'
 
 interface GeneratedPreviewProps {
@@ -76,12 +77,21 @@ export function GeneratedPreview({
             </h3>
             {entries.map((entry) => (
               <div key={entry.id} style={{ marginBottom: '12px' }}>
-                <Textarea
-                  rows={2}
-                  value={editedEntries[entry.id] ?? entry.content}
-                  onChange={(e) => updateEntry(entry.id, e.target.value)}
-                  style={{ marginBottom: '4px' }}
-                />
+                {cat === 'materials_used' ? (
+                  <div style={{ marginBottom: '4px' }}>
+                    <MaterialAutocomplete
+                      value={editedEntries[entry.id] ?? entry.content}
+                      onChange={(val) => updateEntry(entry.id, val)}
+                    />
+                  </div>
+                ) : (
+                  <Textarea
+                    rows={2}
+                    value={editedEntries[entry.id] ?? entry.content}
+                    onChange={(e) => updateEntry(entry.id, e.target.value)}
+                    style={{ marginBottom: '4px' }}
+                  />
+                )}
                 <div
                   style={{
                     display: 'flex',
