@@ -79,5 +79,23 @@
     "savedLocally": "Sem internet – o relatório será enviado quando a conexão for restaurada.",
     "syncNow": "Sincronizar agora",
     "syncing": "Sincronizando..."
+  },
+  "analytics": {
+    "title": "Análises",
+    "reportsByDay": "Relatórios por dia",
+    "hoursByProject": "Horas por projeto",
+    "materialsByProject": "Entradas de materiais por projeto",
+    "topWorkers": "Melhores trabalhadores",
+    "submissionRate": "Taxa de entrega",
+    "submittedOnTime": "{{count}} de {{total}} relatórios entregues no prazo",
+    "noData": "Sem dados para o período selecionado.",
+    "noAccess": "Apenas supervisores e administradores podem visualizar as análises.",
+    "filterFrom": "De",
+    "filterTo": "Até",
+    "filterProject": "Projeto",
+    "reset": "Redefinir",
+    "worker": "Trabalhador",
+    "reportCount": "Relatórios",
+    "totalHours": "Total de horas"
   }
 }

@@ -14,6 +14,7 @@ const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage')
 const UserManagementPage = lazy(() => import('./pages/admin/UserManagementPage'))
 const SettingsPage = lazy(() => import('./pages/admin/SettingsPage'))
 const TemplateManagementPage = lazy(() => import('./pages/admin/TemplateManagementPage'))
+const AnalyticsDashboardPage = lazy(() => import('./pages/analytics/AnalyticsDashboardPage'))
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,6 +59,7 @@ export default function App() {
                 <Route path="/admin/users" element={<UserManagementPage />} />
                 <Route path="/admin/settings" element={<SettingsPage />} />
                 <Route path="/admin/templates" element={<TemplateManagementPage />} />
+                <Route path="/analytics" element={<AnalyticsDashboardPage />} />
               </Route>
             </Route>
 

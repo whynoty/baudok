@@ -14,6 +14,7 @@ urlpatterns = [
         path('export/', include('apps.reports.urls_export')),
         path('templates/', include('apps.reports.urls_templates')),
         path('weather/', include('apps.reports.urls_weather')),
+        path('analytics/', include('apps.reports.urls_analytics')),
     ])),
 ]
 

@@ -79,5 +79,23 @@
     "savedLocally": "Kein Internet – Bericht wird nach Verbindungswiederherstellung übermittelt.",
     "syncNow": "Jetzt synchronisieren",
     "syncing": "Wird übertragen..."
+  },
+  "analytics": {
+    "title": "Auswertungen",
+    "reportsByDay": "Berichte pro Tag",
+    "hoursByProject": "Stunden pro Projekt",
+    "materialsByProject": "Materialeinträge pro Projekt",
+    "topWorkers": "Top Mitarbeiter",
+    "submissionRate": "Einreichungsquote",
+    "submittedOnTime": "{{count}} von {{total}} Berichten rechtzeitig eingereicht",
+    "noData": "Keine Daten für den gewählten Zeitraum.",
+    "noAccess": "Nur Vorgesetzte und Admins können Auswertungen sehen.",
+    "filterFrom": "Von",
+    "filterTo": "Bis",
+    "filterProject": "Projekt",
+    "reset": "Zurücksetzen",
+    "worker": "Mitarbeiter",
+    "reportCount": "Berichte",
+    "totalHours": "Stunden gesamt"
   }
 }

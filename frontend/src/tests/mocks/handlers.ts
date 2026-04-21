@@ -1,4 +1,25 @@
 import { http, HttpResponse } from 'msw'
+import type { AnalyticsData } from '../../api/types'
+
+export const mockAnalytics: AnalyticsData = {
+  reports_by_day: [
+    { date: '2026-04-20', count: 2 },
+    { date: '2026-04-21', count: 3 },
+  ],
+  hours_by_project: [
+    { project_id: 'proj-uuid-1', project_name: 'Projekt Alpha', total_hours: 24.0 },
+    { project_id: 'proj-uuid-2', project_name: 'Projekt Beta', total_hours: 16.5 },
+  ],
+  materials_by_project: [
+    { project_id: 'proj-uuid-1', project_name: 'Projekt Alpha', entries: 8 },
+    { project_id: 'proj-uuid-2', project_name: 'Projekt Beta', entries: 4 },
+  ],
+  top_workers: [
+    { worker_id: 'worker-uuid-1', worker_name: 'Hans Müller', report_count: 12, total_hours: 96.0 },
+    { worker_id: 'worker-uuid-2', worker_name: 'Anna Schmidt', report_count: 8, total_hours: 64.0 },
+  ],
+  submission_rate: { on_time: 18, total: 20, percentage: 90.0 },
+}
 
 export const mockUser = {
   id: 'user-uuid-1',
@@ -84,6 +105,7 @@ export const mockWeather = {
 }
 
 export const handlers = [
+  http.get('*/analytics/', () => HttpResponse.json(mockAnalytics)),
   http.get('*/weather/', () => HttpResponse.json(mockWeather)),
   http.post('*/auth/login/', () =>
     HttpResponse.json({ access: 'mock-access-token', refresh: 'mock-refresh-token' })

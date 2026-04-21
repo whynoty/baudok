@@ -79,5 +79,23 @@
     "savedLocally": "No internet – report will be submitted when connection is restored.",
     "syncNow": "Sync now",
     "syncing": "Syncing..."
+  },
+  "analytics": {
+    "title": "Analytics",
+    "reportsByDay": "Reports per Day",
+    "hoursByProject": "Hours by Project",
+    "materialsByProject": "Material Entries by Project",
+    "topWorkers": "Top Workers",
+    "submissionRate": "Submission Rate",
+    "submittedOnTime": "{{count}} of {{total}} reports submitted on time",
+    "noData": "No data for the selected period.",
+    "noAccess": "Only supervisors and admins can view analytics.",
+    "filterFrom": "From",
+    "filterTo": "To",
+    "filterProject": "Project",
+    "reset": "Reset",
+    "worker": "Worker",
+    "reportCount": "Reports",
+    "totalHours": "Total Hours"
   }
 }

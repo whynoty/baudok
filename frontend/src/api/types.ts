@@ -121,3 +121,41 @@ export interface ReportTemplate {
   created_at: string
   updated_at: string
 }
+
+export interface ReportsByDay {
+  date: string
+  count: number
+}
+
+export interface HoursByProject {
+  project_id: string | null
+  project_name: string
+  total_hours: number
+}
+
+export interface MaterialsByProject {
+  project_id: string | null
+  project_name: string
+  entries: number
+}
+
+export interface TopWorker {
+  worker_id: string
+  worker_name: string
+  report_count: number
+  total_hours: number
+}
+
+export interface SubmissionRate {
+  on_time: number
+  total: number
+  percentage: number
+}
+
+export interface AnalyticsData {
+  reports_by_day: ReportsByDay[]
+  hours_by_project: HoursByProject[]
+  materials_by_project: MaterialsByProject[]
+  top_workers: TopWorker[]
+  submission_rate: SubmissionRate
+}

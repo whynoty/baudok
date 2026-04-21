@@ -79,5 +79,23 @@
     "savedLocally": "Nessuna connessione – il rapporto verrà inviato al ripristino della connessione.",
     "syncNow": "Sincronizza ora",
     "syncing": "Sincronizzazione in corso..."
+  },
+  "analytics": {
+    "title": "Analisi",
+    "reportsByDay": "Rapporti per giorno",
+    "hoursByProject": "Ore per progetto",
+    "materialsByProject": "Voci materiali per progetto",
+    "topWorkers": "Top lavoratori",
+    "submissionRate": "Tasso di consegna",
+    "submittedOnTime": "{{count}} di {{total}} rapporti consegnati in tempo",
+    "noData": "Nessun dato per il periodo selezionato.",
+    "noAccess": "Solo supervisori e amministratori possono visualizzare le analisi.",
+    "filterFrom": "Da",
+    "filterTo": "A",
+    "filterProject": "Progetto",
+    "reset": "Reimposta",
+    "worker": "Lavoratore",
+    "reportCount": "Rapporti",
+    "totalHours": "Ore totali"
   }
 }
