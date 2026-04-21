@@ -91,6 +91,20 @@
     "signedBy": "Unterzeichnet von",
     "at": "am"
   },
+  "share": {
+    "title": "Link teilen",
+    "create": "Link erstellen",
+    "expires": "Gültig für (Tage)",
+    "note": "Notiz (optional)",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "deactivate": "Deaktivieren",
+    "empty": "Noch keine Links erstellt.",
+    "accessCount": "{{count}}× aufgerufen",
+    "expiresOn": "Gültig bis {{date}}",
+    "invalid": "Dieser Link ist nicht mehr gültig oder wurde deaktiviert.",
+    "footer": "Erstellt mit BauDok · Gültig bis {{date}}"
+  },
   "analytics": {
     "title": "Auswertungen",
     "reportsByDay": "Berichte pro Tag",

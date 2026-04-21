@@ -91,6 +91,20 @@
     "signedBy": "Firmado por",
     "at": "el"
   },
+  "share": {
+    "title": "Compartir enlace",
+    "create": "Crear enlace",
+    "expires": "Válido durante (días)",
+    "note": "Nota (opcional)",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "deactivate": "Desactivar",
+    "empty": "Aún no se han creado enlaces.",
+    "accessCount": "Accedido {{count}}×",
+    "expiresOn": "Válido hasta {{date}}",
+    "invalid": "Este enlace ya no es válido o ha sido desactivado.",
+    "footer": "Creado con BauDok · Válido hasta {{date}}"
+  },
   "analytics": {
     "title": "Análisis",
     "reportsByDay": "Informes por día",

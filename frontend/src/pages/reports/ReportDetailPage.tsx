@@ -14,6 +14,7 @@ import SaveAsTemplateButton from '../../components/reports/SaveAsTemplateButton'
 import { SignatureDisplay } from '../../components/reports/SignatureDisplay'
 import { SignaturePad } from '../../components/reports/SignaturePad'
 import RoleGuard from '../../components/auth/RoleGuard'
+import ShareLinkManager from '../../components/reports/ShareLinkManager'
 import { useAuthStore } from '../../store/authStore'
 import type { EntryCategory, ReportPhoto } from '../../api/types'
 
@@ -279,6 +280,11 @@ export default function ReportDetailPage() {
             )}
           </Card>
         )}
+      </RoleGuard>
+
+      {/* Share link manager */}
+      <RoleGuard roles={['supervisor', 'company_admin']}>
+        <ShareLinkManager reportId={report.id} />
       </RoleGuard>
 
       {/* Signatures section */}

@@ -168,3 +168,30 @@ export interface SignatureRecord {
   signature_image: string
   ip_address: string | null
 }
+
+export interface ShareLink {
+  id: string
+  token: string
+  url: string
+  expires_at: string
+  note: string
+  is_active: boolean
+  accessed_count: number
+}
+
+export interface PublicReportEntry {
+  category: string
+  content: string
+  duration_hours: number | null
+}
+
+export interface PublicReport {
+  report_date: string
+  project_name: string
+  weather: string
+  temperature: string
+  worker_name: string
+  company_name: string
+  entries: PublicReportEntry[]
+  share_expires_at: string
+}

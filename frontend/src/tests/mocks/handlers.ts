@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import type { AnalyticsData, SignatureRecord } from '../../api/types'
+import type { AnalyticsData, SignatureRecord, ShareLink, PublicReport } from '../../api/types'
 
 export const mockAnalytics: AnalyticsData = {
   reports_by_day: [
@@ -104,6 +104,29 @@ export const mockWeather = {
   unit: '°C',
 }
 
+export const mockShareLink: ShareLink = {
+  id: 'share-uuid-1',
+  token: 'abc123token',
+  url: '/share/abc123token',
+  expires_at: '2026-05-21T00:00:00Z',
+  note: 'Für Bauherr',
+  is_active: true,
+  accessed_count: 5,
+}
+
+export const mockPublicReport: PublicReport = {
+  report_date: '2026-04-21',
+  project_name: 'Baustelle Nord',
+  weather: 'Sonnig',
+  temperature: '18°C',
+  worker_name: 'Max Mustermann',
+  company_name: 'Bau GmbH',
+  entries: [
+    { category: 'work_performed', content: 'Leitungen verlegt', duration_hours: 6.0 },
+  ],
+  share_expires_at: '2026-05-21T00:00:00Z',
+}
+
 export const mockSignature: SignatureRecord = {
   id: 'sig-uuid-1',
   signer_name: 'Hans Müller',
@@ -191,6 +214,10 @@ export const handlers = [
       logo: null,
     })
   ),
+  http.get('*/reports/*/share/', () => HttpResponse.json([mockShareLink])),
+  http.post('*/reports/*/share/', () => HttpResponse.json(mockShareLink, { status: 201 })),
+  http.delete('*/reports/*/share/*/', () => new HttpResponse(null, { status: 204 })),
+  http.get('*/public/share/*/', () => HttpResponse.json(mockPublicReport)),
   http.get('*/reports/*/signatures/', () => HttpResponse.json({ data: [] })),
   http.post('*/reports/*/signatures/', () =>
     HttpResponse.json({ data: mockSignature }, { status: 201 })

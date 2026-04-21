@@ -15,6 +15,7 @@ const UserManagementPage = lazy(() => import('./pages/admin/UserManagementPage')
 const SettingsPage = lazy(() => import('./pages/admin/SettingsPage'))
 const TemplateManagementPage = lazy(() => import('./pages/admin/TemplateManagementPage'))
 const AnalyticsDashboardPage = lazy(() => import('./pages/analytics/AnalyticsDashboardPage'))
+const PublicReportPage = lazy(() => import('./pages/share/PublicReportPage'))
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,6 +48,7 @@ export default function App() {
         <Suspense fallback={<PageFallback />}>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/share/:token" element={<PublicReportPage />} />
 
             <Route element={<ProtectedRoute />}>
               <Route element={<AppShell />}>

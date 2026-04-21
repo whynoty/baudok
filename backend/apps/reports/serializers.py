@@ -1,7 +1,16 @@
 from rest_framework import serializers
 
 from apps.accounts.serializers import UserSerializer
-from .models import DailyReport, EmailDelivery, Project, ReportEntry, ReportPhoto, ReportTemplate, SignatureRecord
+from .models import (
+    DailyReport,
+    EmailDelivery,
+    Project,
+    ReportEntry,
+    ReportPhoto,
+    ReportTemplate,
+    ShareLink,
+    SignatureRecord,
+)
 
 
 class ReportPhotoSerializer(serializers.ModelSerializer):
@@ -108,3 +117,85 @@ class SignatureRecordSerializer(serializers.ModelSerializer):
         model = SignatureRecord
         fields = ['id', 'signer_name', 'signer_role', 'signed_at', 'signature_image', 'ip_address']
         read_only_fields = ['id', 'signer_name', 'signer_role', 'signed_at', 'ip_address']
+
+
+# ---------------------------------------------------------------------------
+# ShareLink serializers
+# ---------------------------------------------------------------------------
+
+
+class ShareLinkCreateSerializer(serializers.Serializer):
+    expires_days = serializers.IntegerField(default=30, min_value=1, max_value=365)
+    note = serializers.CharField(max_length=255, required=False, allow_blank=True, default='')
+
+
+class ShareLinkSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ShareLink
+        fields = [
+            'id',
+            'token',
+            'url',
+            'expires_at',
+            'note',
+            'is_active',
+            'accessed_count',
+            'created_at',
+        ]
+        read_only_fields = fields
+
+    def get_url(self, obj):
+        return f'/share/{obj.token}'
+
+
+class PublicReportEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReportEntry
+        fields = ['category', 'content', 'duration_hours']
+
+
+class PublicReportSerializer(serializers.ModelSerializer):
+    project_name = serializers.SerializerMethodField()
+    worker_name = serializers.SerializerMethodField()
+    company_name = serializers.SerializerMethodField()
+    entries = serializers.SerializerMethodField()
+    share_expires_at = serializers.SerializerMethodField()
+    temperature = serializers.SerializerMethodField()
+
+    class Meta:
+        model = DailyReport
+        fields = [
+            'report_date',
+            'project_name',
+            'weather',
+            'temperature',
+            'worker_name',
+            'company_name',
+            'entries',
+            'share_expires_at',
+        ]
+
+    def get_project_name(self, obj):
+        return obj.project.name if obj.project else None
+
+    def get_worker_name(self, obj):
+        return obj.created_by.get_full_name() if obj.created_by else None
+
+    def get_company_name(self, obj):
+        return obj.company.name if obj.company else None
+
+    def get_entries(self, obj):
+        return PublicReportEntrySerializer(obj.entries.all(), many=True).data
+
+    def get_share_expires_at(self, obj):
+        share_link = self.context.get('share_link')
+        if share_link:
+            return share_link.expires_at
+        return None
+
+    def get_temperature(self, obj):
+        if obj.temperature is not None:
+            return f'{obj.temperature}°C'
+        return None

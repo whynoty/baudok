@@ -16,6 +16,8 @@ urlpatterns = [
         path('templates/', include('apps.reports.urls_templates')),
         path('weather/', include('apps.reports.urls_weather')),
         path('analytics/', include('apps.reports.urls_analytics')),
+        path('', include('apps.reports.urls_share')),
+        path('', include('apps.reports.urls_public')),
     ])),
 ]
 

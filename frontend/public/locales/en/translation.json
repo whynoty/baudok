@@ -91,6 +91,20 @@
     "signedBy": "Signed by",
     "at": "on"
   },
+  "share": {
+    "title": "Share link",
+    "create": "Create link",
+    "expires": "Valid for (days)",
+    "note": "Note (optional)",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "deactivate": "Deactivate",
+    "empty": "No links created yet.",
+    "accessCount": "Accessed {{count}}×",
+    "expiresOn": "Valid until {{date}}",
+    "invalid": "This link is no longer valid or has been deactivated.",
+    "footer": "Created with BauDok · Valid until {{date}}"
+  },
   "analytics": {
     "title": "Analytics",
     "reportsByDay": "Reports per Day",

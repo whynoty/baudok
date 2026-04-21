@@ -1,3 +1,4 @@
+import secrets
 import uuid
 from datetime import date
 from django.conf import settings
@@ -194,3 +195,32 @@ class SignatureRecord(models.Model):
 
     def __str__(self):
         return f'{self.signer_name} ({self.get_signer_role_display()}) — {self.report}'
+
+
+class ShareLink(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    report = models.ForeignKey(
+        'DailyReport', on_delete=models.CASCADE, related_name='share_links'
+    )
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True
+    )
+    token = models.CharField(max_length=64, unique=True, db_index=True)
+    expires_at = models.DateTimeField()
+    note = models.CharField(max_length=255, blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    accessed_count = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Freigabe-Link'
+        verbose_name_plural = 'Freigabe-Links'
+
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = secrets.token_urlsafe(32)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'ShareLink {self.token[:8]}… → {self.report}'
