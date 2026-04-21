@@ -64,6 +64,13 @@
     "deleteConfirm": "Really delete this template?",
     "rawInput": "Template text"
   },
+  "weather": {
+    "autoFill": "Get weather",
+    "accept": "Use this",
+    "permissionDenied": "Location access denied. Please enter manually.",
+    "unavailable": "Weather service unavailable.",
+    "loading": "Loading weather…"
+  },
   "offline": {
     "banner": "No internet connection – changes are saved locally.",
     "draftsQueued": "{{count}} draft(s) waiting to sync.",

@@ -64,6 +64,13 @@
     "deleteConfirm": "Eliminare davvero questo modello?",
     "rawInput": "Testo del modello"
   },
+  "weather": {
+    "autoFill": "Ottieni meteo",
+    "accept": "Usa",
+    "permissionDenied": "Accesso alla posizione negato.",
+    "unavailable": "Servizio meteo non disponibile.",
+    "loading": "Caricamento meteo…"
+  },
   "offline": {
     "banner": "Nessuna connessione internet – le modifiche vengono salvate localmente.",
     "draftsQueued": "{{count}} bozza/e in attesa di sincronizzazione.",

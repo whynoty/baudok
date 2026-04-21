@@ -64,6 +64,13 @@
     "deleteConfirm": "¿Realmente eliminar esta plantilla?",
     "rawInput": "Texto de plantilla"
   },
+  "weather": {
+    "autoFill": "Obtener clima",
+    "accept": "Usar",
+    "permissionDenied": "Acceso a ubicación denegado.",
+    "unavailable": "Servicio meteorológico no disponible.",
+    "loading": "Cargando clima…"
+  },
   "offline": {
     "banner": "Sin conexión a internet – los cambios se guardan localmente.",
     "draftsQueued": "{{count}} borrador(es) esperando sincronización.",

@@ -13,6 +13,7 @@ urlpatterns = [
         path('ai/', include('apps.ai.urls')),
         path('export/', include('apps.reports.urls_export')),
         path('templates/', include('apps.reports.urls_templates')),
+        path('weather/', include('apps.reports.urls_weather')),
     ])),
 ]
 

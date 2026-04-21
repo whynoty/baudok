@@ -64,6 +64,13 @@
     "deleteConfirm": "Diese Vorlage wirklich löschen?",
     "rawInput": "Vorlagentext"
   },
+  "weather": {
+    "autoFill": "Wetter ermitteln",
+    "accept": "Übernehmen",
+    "permissionDenied": "Standortzugriff verweigert. Bitte manuell eingeben.",
+    "unavailable": "Wetterdienst nicht verfügbar.",
+    "loading": "Wetter wird geladen…"
+  },
   "offline": {
     "banner": "Keine Internetverbindung – Änderungen werden lokal gespeichert.",
     "draftsQueued": "{{count}} Entwurf(e) warten auf Übertragung.",

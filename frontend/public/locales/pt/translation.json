@@ -64,6 +64,13 @@
     "deleteConfirm": "Realmente excluir este modelo?",
     "rawInput": "Texto do modelo"
   },
+  "weather": {
+    "autoFill": "Obter clima",
+    "accept": "Usar",
+    "permissionDenied": "Acesso à localização negado.",
+    "unavailable": "Serviço meteorológico indisponível.",
+    "loading": "Carregando clima…"
+  },
   "offline": {
     "banner": "Sem conexão com a internet – as alterações são salvas localmente.",
     "draftsQueued": "{{count}} rascunho(s) aguardando sincronização.",

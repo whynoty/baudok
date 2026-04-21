@@ -12,6 +12,7 @@ import { VoiceInput } from '../../components/reports/VoiceInput'
 import { GeneratedPreview } from '../../components/reports/GeneratedPreview'
 import { PhotoUploader } from '../../components/reports/PhotoUploader'
 import TemplatePicker from '../../components/reports/TemplatePicker'
+import { WeatherWidget } from '../../components/reports/WeatherWidget'
 import type { DailyReport, ReportPhoto } from '../../api/types'
 
 export default function NewReportPage() {
@@ -41,7 +42,7 @@ export default function NewReportPage() {
           project_id: projectId || undefined,
           report_date: reportDate,
           weather: weather || undefined,
-          temperature: temperature ? Number(temperature) : undefined,
+          temperature: temperature && !Number.isNaN(Number(temperature)) ? Number(temperature) : undefined,
         })
         .then((r) => r.data.report),
     onSuccess: (report) => {
@@ -106,6 +107,16 @@ export default function NewReportPage() {
         <TemplatePicker onSelect={(tpl) => setRawInput(tpl.raw_input_template)} />
       </div>
 
+      <div style={{ marginBottom: '12px' }}>
+        <WeatherWidget
+          date={reportDate}
+          onWeatherFetched={(description, temperatureString) => {
+            setWeather(description)
+            setTemperature(temperatureString)
+          }}
+        />
+      </div>
+
       <div
         style={{
           display: 'grid',
@@ -126,18 +137,22 @@ export default function NewReportPage() {
           value={projectId}
           onChange={(e) => setProjectId(e.target.value)}
         />
-        <Input
-          label={t('report.weather')}
-          type="text"
-          value={weather}
-          onChange={(e) => setWeather(e.target.value)}
-        />
-        <Input
-          label={t('report.temperature')}
-          type="number"
-          value={temperature}
-          onChange={(e) => setTemperature(e.target.value)}
-        />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <Input
+            label={t('report.weather')}
+            type="text"
+            value={weather}
+            onChange={(e) => setWeather(e.target.value)}
+          />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <Input
+            label={t('report.temperature')}
+            type="number"
+            value={temperature}
+            onChange={(e) => setTemperature(e.target.value)}
+          />
+        </div>
       </div>
 
       <div style={{ marginBottom: '12px' }}>

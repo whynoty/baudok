@@ -102,6 +102,13 @@ export interface GenerateReportPayload {
   temperature?: number
 }
 
+export interface WeatherData {
+  description: string
+  temperature_max: number
+  temperature_min: number
+  unit: string
+}
+
 export interface ReportTemplate {
   id: string
   name: string

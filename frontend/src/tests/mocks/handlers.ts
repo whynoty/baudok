@@ -76,7 +76,15 @@ export const mockTemplates = [
   },
 ]
 
+export const mockWeather = {
+  description: 'Sonnig',
+  temperature_max: 20,
+  temperature_min: 10,
+  unit: '°C',
+}
+
 export const handlers = [
+  http.get('*/weather/', () => HttpResponse.json(mockWeather)),
   http.post('*/auth/login/', () =>
     HttpResponse.json({ access: 'mock-access-token', refresh: 'mock-refresh-token' })
   ),
