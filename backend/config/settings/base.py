@@ -5,6 +5,7 @@ BauDok base settings — shared across all environments.
 import os
 from datetime import timedelta
 from pathlib import Path
+from celery.schedules import crontab
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -153,6 +154,27 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# ---------------------------------------------------------------------------
+# VAPID (Web Push Notifications)
+# ---------------------------------------------------------------------------
+
+# Generate keys with: python -c "from py_vapid import Vapid; v = Vapid(); v.generate_keys(); print(v.private_key, v.public_key)"
+# Or: vapid --gen
+VAPID_PRIVATE_KEY = os.environ.get('VAPID_PRIVATE_KEY', '')
+VAPID_PUBLIC_KEY = os.environ.get('VAPID_PUBLIC_KEY', '')
+VAPID_CLAIMS_EMAIL = os.environ.get('VAPID_CLAIMS_EMAIL', 'admin@baudok.de')
+
+# ---------------------------------------------------------------------------
+# Celery beat schedule
+# ---------------------------------------------------------------------------
+
+CELERY_BEAT_SCHEDULE = {
+    'daily-reminders': {
+        'task': 'apps.notifications.tasks.send_daily_reminders',
+        'schedule': crontab(minute=0, hour='*'),  # check every hour
+    },
+}
 
 # ---------------------------------------------------------------------------
 # Default primary key

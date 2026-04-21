@@ -27,6 +27,9 @@ export function Sidebar() {
     navItems.push({ to: '/admin/settings', label: t('nav.settings') })
   }
 
+  // Notifications link — visible to all authenticated users
+  navItems.push({ to: '/profile/notifications', label: t('notifications.title') })
+
   return (
     <aside
       style={{

@@ -195,3 +195,11 @@ export interface PublicReport {
   entries: PublicReportEntry[]
   share_expires_at: string
 }
+
+export interface NotificationPreference {
+  daily_reminder: boolean
+  reminder_time: string       // "HH:MM:SS"
+  supervisor_alerts: boolean
+  push_enabled: boolean
+  email_fallback: boolean
+}

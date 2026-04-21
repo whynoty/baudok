@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import type { AnalyticsData, SignatureRecord, ShareLink, PublicReport } from '../../api/types'
+import type { AnalyticsData, NotificationPreference, SignatureRecord, ShareLink, PublicReport } from '../../api/types'
 
 export const mockAnalytics: AnalyticsData = {
   reports_by_day: [
@@ -127,6 +127,14 @@ export const mockPublicReport: PublicReport = {
   share_expires_at: '2026-05-21T00:00:00Z',
 }
 
+export const mockNotificationPrefs: NotificationPreference = {
+  daily_reminder: true,
+  reminder_time: '17:00:00',
+  supervisor_alerts: false,
+  push_enabled: false,
+  email_fallback: true,
+}
+
 export const mockSignature: SignatureRecord = {
   id: 'sig-uuid-1',
   signer_name: 'Hans Müller',
@@ -218,6 +226,16 @@ export const handlers = [
   http.post('*/reports/*/share/', () => HttpResponse.json(mockShareLink, { status: 201 })),
   http.delete('*/reports/*/share/*/', () => new HttpResponse(null, { status: 204 })),
   http.get('*/public/share/*/', () => HttpResponse.json(mockPublicReport)),
+  http.get('*/notifications/vapid-public-key/', () =>
+    HttpResponse.json({ public_key: 'test-key' })
+  ),
+  http.post('*/notifications/subscribe/', () => new HttpResponse(null, { status: 201 })),
+  http.delete('*/notifications/subscribe/', () => new HttpResponse(null, { status: 204 })),
+  http.get('*/notifications/preferences/', () => HttpResponse.json(mockNotificationPrefs)),
+  http.patch('*/notifications/preferences/', async ({ request }) => {
+    const body = await request.json() as Partial<NotificationPreference>
+    return HttpResponse.json({ ...mockNotificationPrefs, ...body })
+  }),
   http.get('*/reports/*/signatures/', () => HttpResponse.json({ data: [] })),
   http.post('*/reports/*/signatures/', () =>
     HttpResponse.json({ data: mockSignature }, { status: 201 })

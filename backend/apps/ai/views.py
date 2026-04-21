@@ -195,6 +195,12 @@ class GenerateReportView(APIView):
             _create_entries_from_structured_data(report, structured_data)
 
         report.refresh_from_db()
+
+        # Notify supervisors asynchronously — must be outside the transaction
+        # so the report row is visible to the Celery worker.
+        from apps.notifications.tasks import send_supervisor_alert
+        send_supervisor_alert.delay(str(report.id))
+
         return Response(
             {'report': DailyReportSerializer(report).data},
             status=status.HTTP_201_CREATED,

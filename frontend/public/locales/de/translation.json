@@ -105,6 +105,17 @@
     "invalid": "Dieser Link ist nicht mehr gültig oder wurde deaktiviert.",
     "footer": "Erstellt mit BauDok · Gültig bis {{date}}"
   },
+  "notifications": {
+    "title": "Benachrichtigungen",
+    "pushEnabled": "Push-Benachrichtigungen aktivieren",
+    "dailyReminder": "Tägliche Erinnerung",
+    "reminderTime": "Erinnerungszeit",
+    "emailFallback": "E-Mail als Backup",
+    "supervisorAlerts": "Alert bei neuem Bericht",
+    "notSupported": "Ihr Browser unterstützt keine Push-Benachrichtigungen.",
+    "permissionDenied": "Benachrichtigungen wurden im Browser blockiert. Bitte Einstellungen öffnen.",
+    "saved": "Gespeichert ✓"
+  },
   "analytics": {
     "title": "Auswertungen",
     "reportsByDay": "Berichte pro Tag",

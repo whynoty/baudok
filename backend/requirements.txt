@@ -14,3 +14,5 @@ openpyxl>=3.1
 python-decouple>=3.8
 django-filter>=23.0
 dj-database-url>=2.0
+pywebpush>=1.14
+py-vapid>=1.9

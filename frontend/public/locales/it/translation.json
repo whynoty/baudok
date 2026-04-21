@@ -105,6 +105,17 @@
     "invalid": "Questo link non è più valido o è stato disattivato.",
     "footer": "Creato con BauDok · Valido fino al {{date}}"
   },
+  "notifications": {
+    "title": "Notifiche",
+    "pushEnabled": "Attiva notifiche push",
+    "dailyReminder": "Promemoria giornaliero",
+    "reminderTime": "Orario promemoria",
+    "emailFallback": "E-mail come backup",
+    "supervisorAlerts": "Avviso per nuovo rapporto",
+    "notSupported": "Il browser non supporta le notifiche push.",
+    "permissionDenied": "Le notifiche sono bloccate nel browser. Aprire le impostazioni.",
+    "saved": "Salvato ✓"
+  },
   "analytics": {
     "title": "Analisi",
     "reportsByDay": "Rapporti per giorno",

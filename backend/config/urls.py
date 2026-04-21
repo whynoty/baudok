@@ -18,6 +18,7 @@ urlpatterns = [
         path('analytics/', include('apps.reports.urls_analytics')),
         path('', include('apps.reports.urls_share')),
         path('', include('apps.reports.urls_public')),
+        path('notifications/', include('apps.notifications.urls')),
     ])),
 ]
 
